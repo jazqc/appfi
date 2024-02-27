@@ -6,6 +6,6 @@ export const prisma = new PrismaClient();
 
 dotenv.config();
 
-const server = new Server();
+export const server = new Server();
 
 server.listen()
