@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
 
         const parsedBirthDate = new Date(birth_date);
         if (isNaN(parsedBirthDate.getTime())) {
-            res.status(400).json({ msg: "Invalid birth date format" });
+            res.status(400).json({ msg: "formato de fecha invalida" });
             return;
         }
 
@@ -59,7 +59,7 @@ export const createUser = async (req: Request, res: Response) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: "Error creating user" });
+        res.status(500).json({ msg: "Error al crear usuario" });
         prisma.$disconnect();
     }
 };
