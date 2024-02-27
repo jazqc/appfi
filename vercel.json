@@ -1,15 +1,23 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "index.ts",
-            "use": "@vercel/node"
-        }
-    ],
-    "routes":[
-        {
-            "src": "/(.*)",
-            "dest": "index.ts"
-        }
-    ]
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.js"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url"
+  },
+  "build": {
+    "env": {
+      "DATABASE_URL": "@database_url"
+    }
+  },
+  "systemPackages": ["@prisma/client"]
 }
