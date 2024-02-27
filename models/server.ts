@@ -1,7 +1,6 @@
 import express, {Express} from "express";
 import cors from "cors";
 
-
 import authRoutes from "../routes/auth"
 
 
@@ -34,11 +33,11 @@ export class Server {
  
     }
 
-    listen(): void {
-        this.app.listen(this.port, () => {
-            console.log(`Corriendo en puerto ${this.port}`);
-        })
-    }
+    // listen(): void {
+    //     this.app.listen(this.port, () => {
+    //         console.log(`Corriendo en puerto ${this.port}`);
+    //     })
+    // }
 
 }
 
