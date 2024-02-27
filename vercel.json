@@ -18,6 +18,5 @@
     "env": {
       "DATABASE_URL": "@database_url"
     }
-  },
-  "systemPackages": ["@prisma/client"]
+  }
 }
