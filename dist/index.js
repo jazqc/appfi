@@ -11,3 +11,4 @@ exports.prisma = new client_1.PrismaClient();
 dotenv_1.default.config();
 const server = new server_1.Server();
 server.listen();
+//# sourceMappingURL=index.js.map

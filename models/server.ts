@@ -1,4 +1,5 @@
 import express, {Express} from "express";
+import cors from "cors";
 
 
 import authRoutes from "../routes/auth"
@@ -24,6 +25,7 @@ export class Server {
 
     middlewares(): void {
         this.app.use(express.json())
+        this.app.use(cors())
 
     }
 

@@ -23,7 +23,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const { username, password, rol, email, name, last_name, birth_date, family_in_charge } = userData;
         const parsedBirthDate = new Date(birth_date);
         if (isNaN(parsedBirthDate.getTime())) {
-            res.status(400).json({ msg: "Invalid birth date format" });
+            res.status(400).json({ msg: "formato de fecha invalida" });
             return;
         }
         const salt = bcryptjs_1.default.genSaltSync();
@@ -61,8 +61,9 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ msg: "Error creating user" });
+        res.status(500).json({ msg: "Error al crear usuario" });
         prisma.$disconnect();
     }
 });
 exports.createUser = createUser;
+//# sourceMappingURL=auth.js.map

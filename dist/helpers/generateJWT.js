@@ -22,3 +22,4 @@ const generateJWT = (id) => {
     });
 };
 exports.generateJWT = generateJWT;
+//# sourceMappingURL=generateJWT.js.map
