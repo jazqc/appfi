@@ -39,7 +39,4 @@ export class Server {
     }
 
 }
-export default function createServer() {
-    const server = new Server();
-    return server.app;
-}
+
