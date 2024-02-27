@@ -16,7 +16,7 @@ model User {
   email             String    @unique
   name              String
   last_name         String
-  age               Int
+  birth_date        DateTime
   family_in_charge  Int?
   User_payment_methods   User_payment_method[]
   // transactions Transaction[]

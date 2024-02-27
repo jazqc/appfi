@@ -20,15 +20,19 @@ const prisma = new client_1.PrismaClient();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
-        const { username, password, rol, email, name, last_name, age, family_in_charge } = userData;
+        const { username, password, rol, email, name, last_name, birth_date, family_in_charge } = userData;
+        const parsedBirthDate = new Date(birth_date);
+        if (isNaN(parsedBirthDate.getTime())) {
+            res.status(400).json({ msg: "Invalid birth date format" });
+            return;
+        }
         const salt = bcryptjs_1.default.genSaltSync();
         const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
-        console.log("check");
         const adminKey = req.headers["admin-key"];
         if (adminKey === process.env.KEYFORADMIN) {
             userData.rol = constants_1.ROLES.admin;
         }
-        if (!username || !password || !email || !name || !last_name || !age) {
+        if (!username || !password || !email || !name || !last_name || !birth_date) {
             res.json({
                 msg: "Faltan datos"
             });
@@ -47,7 +51,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         const user = yield prisma.user.create({
             data: {
-                username, password: hashedPassword, rol, email, name, last_name, age, family_in_charge
+                username, password: hashedPassword, rol, email, name, last_name, birth_date: parsedBirthDate, family_in_charge
             }
         });
         prisma.$disconnect();

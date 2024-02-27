@@ -11,7 +11,6 @@ class Server {
         this.app = (0, express_1.default)();
         this.port = process.env.PORT;
         this.authPath = '/auth';
-        // this.conectarDB()
         this.middlewares();
         this.routes();
     }

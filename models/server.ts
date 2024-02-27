@@ -17,7 +17,6 @@ export class Server {
         this.port = process.env.PORT;
         this.authPath = '/auth';
 
-        // this.conectarDB()
         this.middlewares()
         this.routes()
     }

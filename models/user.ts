@@ -9,7 +9,7 @@ export interface IUser {
     email: string;
     name: string;
     last_name: string;
-    age: number;
+    birth_date: string;
     family_in_charge?: number;
     User_payment_methods: IUserPaymentMethod[]; 
     // transactions: ITransaction[]; 
