@@ -4,7 +4,7 @@ import { IUser } from "../models/user"
 
 //validación de registro de email
 export const existEmail = async (email: string): Promise<void> => {
-    const existEmail: IUser | null = await prisma.user.findUnique({
+    const existEmail = await prisma.user.findUnique({
         where:
         {
             email: email
@@ -19,7 +19,7 @@ export const existEmail = async (email: string): Promise<void> => {
 
 //validación de registro de username
 export const existUsername = async (username: string): Promise<void> => {
-    const existUsername: IUser | null = await prisma.user.findUnique({
+    const existUsername = await prisma.user.findUnique({
         where:
         {
             username: username

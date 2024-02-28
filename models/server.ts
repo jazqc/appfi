@@ -33,11 +33,11 @@ export class Server {
  
     }
 
-    // listen(): void {
-    //     this.app.listen(this.port, () => {
-    //         console.log(`Corriendo en puerto ${this.port}`);
-    //     })
-    // }
+    listen(): void {
+        this.app.listen(this.port, () => {
+            console.log(`Corriendo en puerto ${this.port}`);
+        })
+    }
 
 }
 

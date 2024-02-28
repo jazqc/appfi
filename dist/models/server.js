@@ -22,6 +22,11 @@ class Server {
     routes() {
         this.app.use(this.authPath, auth_1.default);
     }
+    listen() {
+        this.app.listen(this.port, () => {
+            console.log(`Corriendo en puerto ${this.port}`);
+        });
+    }
 }
 exports.Server = Server;
 //# sourceMappingURL=server.js.map

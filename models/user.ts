@@ -1,4 +1,4 @@
-import { IUserPaymentMethod } from "./payment_methods";
+
 
 
 export interface IUser {
@@ -11,7 +11,6 @@ export interface IUser {
     last_name: string;
     birth_date: string;
     family_in_charge?: number;
-    user_payment_methods?: IUserPaymentMethod[]; 
     // transactions: ITransaction[]; 
   }
 

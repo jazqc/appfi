@@ -18,7 +18,6 @@ model User {
  last_name            String
  birth_date           DateTime
  family_in_charge     Int?
- user_payment_methods User_payment_method[]
 }
 
 model Payment_method {
@@ -34,7 +33,6 @@ model User_payment_method {
  name           String
  description    String?
  set_alarm      Boolean
- user           User           @relation(fields: [user_id], references: [user_id])
  payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
  expiration     Expirations?
 }

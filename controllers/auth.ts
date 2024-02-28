@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/user";
 import bcryptjs from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
+import {PrismaClient} from "@prisma/client";
 import { ROLES } from "../helpers/constants";
 import { generateJWT } from "../helpers/generateJWT";
 
@@ -19,7 +19,6 @@ export const createUser = async (req: Request, res: Response) => {
       last_name,
       birth_date,
       family_in_charge,
-      user_payment_methods
     } = userData;
     //Encriptado
     const salt = bcryptjs.genSaltSync();
@@ -97,7 +96,6 @@ export const createUser = async (req: Request, res: Response) => {
         last_name,
         birth_date: parsedBirthDate,
         family_in_charge,
-        user_payment_methods
       },
     });
 

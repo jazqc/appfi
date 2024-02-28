@@ -21,7 +21,7 @@ const prisma = new client_1.PrismaClient();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
-        const { username, password, rol, email, name, last_name, birth_date, family_in_charge, user_payment_methods } = userData;
+        const { username, password, rol, email, name, last_name, birth_date, family_in_charge, } = userData;
         //Encriptado
         const salt = bcryptjs_1.default.genSaltSync();
         const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
@@ -86,7 +86,6 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 last_name,
                 birth_date: parsedBirthDate,
                 family_in_charge,
-                user_payment_methods
             },
         });
         prisma.$disconnect();
