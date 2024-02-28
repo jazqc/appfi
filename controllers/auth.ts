@@ -12,7 +12,9 @@ export const createUser = async (req: Request, res: Response) => {
     try {
         const userData: IUser = req.body;
         const { username, password, rol, email, name, last_name, birth_date, family_in_charge } = userData;
-
+        //Encriptado
+        const salt = bcryptjs.genSaltSync();
+        const hashedPassword = bcryptjs.hashSync(password, salt);
         //Chequeo de credenciales
         const adminKey = req.headers["admin-key"];
         if (adminKey === process.env.KEYFORADMIN) {
@@ -21,20 +23,20 @@ export const createUser = async (req: Request, res: Response) => {
 
 
         //Validaciones
-        const isValidPassword = (password: string): boolean => {
+        // const isValidPassword = (password: string): boolean => {
 
-            if (password.length < 8) {
-                return false;
-            }
+        //     if (password.length < 8) {
+        //         return false;
+        //     }
 
-            return true;
-        };
+        //     return true;
+        // };
 
 
-        if (!isValidPassword(password)) {
-            res.status(400).json({ msg: "La contraseña debe tener al menos 8 caracteres" });
-            return;
-        }
+        // if (!isValidPassword(password)) {
+        //     res.status(400).json({ msg: "La contraseña debe tener al menos 8 caracteres" });
+        //     return;
+        // }
 
         const parsedBirthDate = new Date(birth_date);
         if (isNaN(parsedBirthDate.getTime())) {
@@ -44,41 +46,40 @@ export const createUser = async (req: Request, res: Response) => {
 
 
         //Chequeo de campos
-        if (!username || !password || !email || !name || !last_name || !birth_date) {
-            res.json({
-                msg: "Faltan datos"
-            });
-            return;
-        }
+        // if (!username || !password || !email || !name || !last_name || !birth_date) {
+        //     res.json({
+        //         msg: "Faltan datos"
+        //     });
+        //     return;
+        // }
 
-        const userInDB = await prisma.user.findUnique({
-            where: {
-                email: email
-            }
-        });
+        // const userInDB = await prisma.user.findUnique({
+        //     where: {
+        //         email: email
+        //     }
+        // });
 
-        if (userInDB) {
-            res.json({
-                msg: "El email ya se encuentra registrado"
-            });
-            return;
-        }
+        // if (userInDB) {
+        //     res.json({
+        //         msg: "El email ya se encuentra registrado"
+        //     });
+        //     return;
+        // }
 
-        const usernameInDB = await prisma.user.findUnique({
-            where: {
-                username: username
-            }
-        });
+        // const usernameInDB = await prisma.user.findUnique({
+        //     where: {
+        //         username: username
+        //     }
+        // });
 
-        if (usernameInDB) {
-            res.json({
-                msg: "El email ya se encuentra registrado"
-            });
-            return;
-        }
-        //Encriptado
-        const salt = bcryptjs.genSaltSync();
-        const hashedPassword = bcryptjs.hashSync(password, salt);
+        // if (usernameInDB) {
+        //     res.json({
+        //         msg: "El username ya se encuentra registrado"
+        //     });
+        //     return;
+        // }
+
+
 
         //Creación de usuario
 
