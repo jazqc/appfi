@@ -3,6 +3,7 @@ import { createUser } from "../controllers/auth";
 import {check} from "express-validator";
 import { existEmail, existUsername } from "../helpers/validationsDB";
 import { recolectErrors } from "../middlewares/recolectErrors";
+import { login } from "../controllers/auth"
 
 
 const router = Router();
@@ -21,6 +22,6 @@ router.post("/register",
 ],
  createUser)
 
-// router.post("/login", loginUser)
+router.post("/login", login)
 
 export default router;
