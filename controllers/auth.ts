@@ -64,6 +64,18 @@ export const createUser = async (req: Request, res: Response) => {
             return;
         }
 
+        const usernameInDB = await prisma.user.findUnique({
+            where: {
+                username: username
+            }
+        });
+
+        if (usernameInDB) {
+            res.json({
+                msg: "El email ya se encuentra registrado"
+            });
+            return;
+        }
         //Encriptado
         const salt = bcryptjs.genSaltSync();
         const hashedPassword = bcryptjs.hashSync(password, salt);
