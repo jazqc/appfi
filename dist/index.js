@@ -19,8 +19,43 @@ const client_1 = require("@prisma/client");
 exports.prisma = new client_1.PrismaClient();
 dotenv_1.default.config();
 const server = new server_1.Server();
-// server.listen()
+server.listen();
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield server.app(req, res);
 });
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    // async function deleteAllPM() {
+    //    await prisma.payment_method.deleteMany();
+    //   }
+    //   deleteAllPM()
+    //    .catch((e) => {
+    //       throw e;
+    //    })
+    //    .finally(async () => {
+    //       await prisma.$disconnect();
+    //    });
+    // }
+    try {
+        const paymentMethods = yield exports.prisma.payment_method.createMany({
+            data: [
+                {
+                    name: "CREDIT",
+                },
+                {
+                    name: "DEBIT",
+                },
+                {
+                    name: "CASH",
+                },
+            ],
+        });
+        console.log(paymentMethods);
+        exports.prisma.$disconnect();
+    }
+    catch (error) {
+        console.log(error);
+        exports.prisma.$disconnect();
+    }
+});
+main();
 //# sourceMappingURL=index.js.map
