@@ -12,11 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.createUser = void 0;
+exports.createUser = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const client_1 = require("@prisma/client");
 const constants_1 = require("../helpers/constants");
-const generateJWT_1 = require("../helpers/generateJWT");
 const prisma = new client_1.PrismaClient();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -94,46 +93,42 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.createUser = createUser;
 //Login de usuario
-const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
-    try {
-        const user = yield prisma.user.findUnique({
-            where: {
-                username: username
-            }
-        });
-        if (!user) {
-            res.status(400).json({
-                msg: "Usuario no registrado"
-            });
-            return;
-        }
-        const validatePassword = bcryptjs_1.default.compareSync(password, user.password);
-        if (!validatePassword) {
-            res.status(401).json({
-                msg: "password incorrecto"
-            });
-            return;
-        }
-        ;
-        const token = yield (0, generateJWT_1.generateJWT)(user.id);
-        res.status(202).json({
-            user,
-            token
-        });
-        if (user.rol === constants_1.ROLES.admin) {
-            console.log("el user es admin");
-        }
-        else {
-            console.log("el user no es admin");
-        }
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: "Error en el servidor"
-        });
-    }
-});
-exports.login = login;
+// export const login = async (req: Request, res: Response): Promise<void> => {
+//     const { username, password }: IUser = req.body;
+//     try {
+//         const user = await prisma.user.findUnique({
+//             where: {
+//                 username: username
+//             }
+//         })
+//         if (!user) {
+//             res.status(400).json({
+//                 msg: "Usuario no registrado"
+//             })
+//             return
+//         }
+//         const validatePassword = bcryptjs.compareSync(password, user.password);
+//         if (!validatePassword) {
+//             res.status(401).json({
+//                 msg: "password incorrecto"
+//             });
+//             return
+//         };
+//         const token = await generateJWT(user.user_id)
+//         res.status(202).json({
+//             user,
+//             token
+//         })
+//         if (user.rol === ROLES.admin) {
+//             console.log("el user es admin")
+//         } else {
+//             console.log("el user no es admin")
+//         }
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({
+//             msg: "Error en el servidor"
+//         })
+//     }
+// }
 //# sourceMappingURL=auth.js.map
