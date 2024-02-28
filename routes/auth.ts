@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createUser } from "../controllers/auth";
 import {check} from "express-validator";
 import { existEmail, existUsername } from "../helpers/validationsDB";
+import { recolectErrors } from "../middlewares/recolectErrors";
 
 
 const router = Router();
@@ -16,7 +17,7 @@ router.post("/register",
     check ("username").custom(existUsername),
     check ("birth_date").not().isEmpty(),
     
-    recolectarErrores
+    recolectErrors
 ],
  createUser)
 
