@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import { ROLES } from "../helpers/constants";
 import { generateJWT } from "../helpers/generateJWT";
 
+
 const prisma = new PrismaClient();
 
 export const createUser = async (req: Request, res: Response) => {
@@ -12,20 +13,37 @@ export const createUser = async (req: Request, res: Response) => {
         const userData: IUser = req.body;
         const { username, password, rol, email, name, last_name, birth_date, family_in_charge } = userData;
 
+        //Chequeo de credenciales
+        const adminKey = req.headers["admin-key"];
+        if (adminKey === process.env.KEYFORADMIN) {
+            userData.rol = ROLES.admin;
+        }
+
+
+        //Validaciones
+        const isValidPassword = (password: string): boolean => {
+
+            if (password.length < 8) {
+                return false;
+            }
+
+            return true;
+        };
+
+
+        if (!isValidPassword(password)) {
+            res.status(400).json({ msg: "La contraseña debe tener al menos 8 caracteres" });
+            return;
+        }
+
         const parsedBirthDate = new Date(birth_date);
         if (isNaN(parsedBirthDate.getTime())) {
             res.status(400).json({ msg: "formato de fecha invalida" });
             return;
         }
 
-        const salt = bcryptjs.genSaltSync();
-        const hashedPassword = bcryptjs.hashSync(password, salt);
 
-        const adminKey = req.headers["admin-key"];
-        if (adminKey === process.env.KEYFORADMIN) {
-            userData.rol = ROLES.admin;
-        }
-
+        //Chequeo de campos
         if (!username || !password || !email || !name || !last_name || !birth_date) {
             res.json({
                 msg: "Faltan datos"
@@ -46,6 +64,12 @@ export const createUser = async (req: Request, res: Response) => {
             return;
         }
 
+        //Encriptado
+        const salt = bcryptjs.genSaltSync();
+        const hashedPassword = bcryptjs.hashSync(password, salt);
+
+        //Creación de usuario
+
         const user = await prisma.user.create({
             data: {
                 username, password: hashedPassword, rol, email, name, last_name, birth_date: parsedBirthDate, family_in_charge
@@ -63,3 +87,52 @@ export const createUser = async (req: Request, res: Response) => {
         prisma.$disconnect();
     }
 };
+
+
+//Login de usuario
+export const login = async (req: Request, res: Response): Promise<void> => {
+    const { username, password }: IUser = req.body;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                username: username
+            }
+        })
+
+        if (!user) {
+            res.status(400).json({
+                msg: "Usuario no registrado"
+            })
+            return
+        }
+
+        const validatePassword = bcryptjs.compareSync(password, user.password);
+        if (!validatePassword) {
+            res.status(401).json({
+                msg: "password incorrecto"
+            });
+            return
+        };
+
+        const token = await generateJWT(user.id)
+        res.status(202).json({
+            user,
+            token
+        })
+
+        if (user.rol === ROLES.admin) {
+            console.log("el user es admin")
+        } else {
+            console.log("el user no es admin")
+        }
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: "Error en el servidor"
+        })
+    }
+
+}
