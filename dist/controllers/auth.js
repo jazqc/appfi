@@ -21,7 +21,7 @@ const prisma = new client_1.PrismaClient();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
-        const { username, password, rol, email, name, last_name, birth_date, family_in_charge } = userData;
+        const { username, password, rol, email, name, last_name, birth_date, family_in_charge, user_payment_methods } = userData;
         //Encriptado
         const salt = bcryptjs_1.default.genSaltSync();
         const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
@@ -78,12 +78,20 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         //Creación de usuario
         const user = yield prisma.user.create({
             data: {
-                username, password: hashedPassword, rol, email, name, last_name, birth_date: parsedBirthDate, family_in_charge
-            }
+                username,
+                password: hashedPassword,
+                rol,
+                email,
+                name,
+                last_name,
+                birth_date: parsedBirthDate,
+                family_in_charge,
+                user_payment_methods
+            },
         });
         prisma.$disconnect();
         res.json({
-            msg: "Usuario creado con éxito"
+            msg: "Usuario creado con éxito",
         });
     }
     catch (error) {
@@ -99,27 +107,26 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { username, password } = req.body;
         const userInDB = yield prisma.user.findUnique({
             where: {
-                username: username
-            }
+                username: username,
+            },
         });
         if (!userInDB) {
             res.status(400).json({
-                msg: "Usuario no registrado"
+                msg: "Usuario no registrado",
             });
             return;
         }
         const validatePassword = bcryptjs_1.default.compareSync(password, userInDB.password);
         if (!validatePassword) {
             res.status(401).json({
-                msg: "password incorrecto"
+                msg: "password incorrecto",
             });
             return;
         }
-        ;
         const token = yield (0, generateJWT_1.generateJWT)(userInDB.user_id);
         res.status(202).json({
             userInDB,
-            token
+            token,
         });
         if (userInDB.rol === constants_1.ROLES.admin) {
             console.log("el user es admin");
@@ -131,7 +138,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         console.log(error);
         res.status(500).json({
-            msg: "Error en el servidor"
+            msg: "Error en el servidor",
         });
     }
 });

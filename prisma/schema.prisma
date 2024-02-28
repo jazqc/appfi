@@ -46,16 +46,25 @@ model Expirations {
  user_payment_method User_payment_method @relation(fields: [user_pm_id], references: [user_pm_id])
 }
 
+model Category {
+    category_id                     Int   @id @default(autoincrement())
+    category_type                   Int        
+    name                            String @unique 
+    transactions                    Transaction[]
+}
 model Transaction {
     transaction_id                 Int   @id @default(autoincrement())
-    transaction_type_id             Int   @relation(fields: [transaction_type_id], references: [transaction_type_id])
+    transaction_type_id             Int
+    transaction_type                Transaction_type @relation(fields: [transaction_type_id], references: [transaction_type_id])
     amount                          Float
     name                            String
     description                     String?
+    category_id                     Int
     category                        Category @relation(fields: [category_id], references: [category_id])
     date                            DateTime
     is_recurring                    Boolean
-    recurrency                      Recurrency @relation(fields: [recurrency_id], references: [recurrency_id])
+    recurrency_id                   Int?
+    recurrency                      Recurrency? @relation(fields: [recurrency_id], references: [recurrency_id])
     user_payment_method_id          Int
     expiration_id                   Int?
     installments                    Boolean?
@@ -66,16 +75,12 @@ model Transaction_type {
     transaction_type_id              Int   @id @default(autoincrement())
     name                            String
     description                     String?
-}
-
-model Category {
-    category_id                     Int   @id @default(autoincrement())
-    category_type                   Int        
-    name                            String @unique 
+    transactions                    Transaction[]
 }
 
 model Recurrency {
     recurrency_id                   Int   @id @default(autoincrement())
     name                            String @unique
     interval                        Int
+    transactions                    Transaction[]
 }
