@@ -5,6 +5,7 @@ const auth_1 = require("../controllers/auth");
 const express_validator_1 = require("express-validator");
 const validationsDB_1 = require("../helpers/validationsDB");
 const recolectErrors_1 = require("../middlewares/recolectErrors");
+const auth_2 = require("../controllers/auth");
 const router = (0, express_1.Router)();
 router.post("/register", [
     (0, express_validator_1.check)("username", 'el nombre de usuario es obligatorio').not().isEmpty(),
@@ -17,6 +18,6 @@ router.post("/register", [
     (0, express_validator_1.check)("birth_date").not().isEmpty(),
     recolectErrors_1.recolectErrors
 ], auth_1.createUser);
-// router.post("/login", loginUser)
+router.post("/login", auth_2.login);
 exports.default = router;
 //# sourceMappingURL=auth.js.map
