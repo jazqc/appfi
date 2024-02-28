@@ -1,49 +1,81 @@
 generator client {
-  provider = "prisma-client-js"
+ provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  // url      = env("DATABASE_URL")
-  url       = env("POSTGRES_PRISMA_URL") 
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+ provider = "postgresql"
+ url       = env("POSTGRES_PRISMA_URL") 
+ directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
-  user_id              Int                   @id @default(autoincrement())
-  username             String                @unique
-  password             String
-  rol                  String?               @default("50yunu53r")
-  email                String                @unique
-  name                 String
-  last_name            String
-  birth_date           DateTime
-  family_in_charge     Int?
-  user_payment_methods User_payment_method[]
-  // transactions Transaction[]
+ user_id              Int                   @id @default(autoincrement())
+ username             String                @unique
+ password             String
+ rol                 String?               @default("50yunu53r")
+ email                String                @unique
+ name                 String
+ last_name            String
+ birth_date           DateTime
+ family_in_charge     Int?
+ user_payment_methods User_payment_method[]
 }
 
 model Payment_method {
-  pm_type_id           Int                   @id @default(autoincrement())
-  name                 String
-  user_payment_methods User_payment_method[]
+ pm_type_id           Int                   @id @default(autoincrement())
+ name                 String
+ user_payment_methods User_payment_method[]
 }
 
 model User_payment_method {
-  user_pm_id     Int            @id @default(autoincrement())
-  user_id        Int
-  type_id        Int
-  name           String
-  description    String?
-  set_alarm      Boolean
-  user           User           @relation(fields: [user_id], references: [user_id])
-  payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
-  expiration     Expirations?
+ user_pm_id     Int            @id @default(autoincrement())
+ user_id        Int
+ type_id        Int
+ name           String
+ description    String?
+ set_alarm      Boolean
+ user           User           @relation(fields: [user_id], references: [user_id])
+ payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
+ expiration     Expirations?
 }
 
 model Expirations {
-  expiration_id       Int                 @id @default(autoincrement())
-  expiration_day      DateTime
-  user_pm_id          Int                 @unique
-  user_payment_method User_payment_method @relation(fields: [user_pm_id], references: [user_pm_id])
+ expiration_id       Int                 @id @default(autoincrement())
+ expiration_day      DateTime
+ user_pm_id          Int                 @unique
+ user_payment_method User_payment_method @relation(fields: [user_pm_id], references: [user_pm_id])
+}
+
+model Transaction {
+    transaction_id                 Int   @id @default(autoincrement())
+    transaction_type_id             Int   @relation(fields: [transaction_type_id], references: [transaction_type_id])
+    amount                          Float
+    name                            String
+    description                     String?
+    category                        Category @relation(fields: [category_id], references: [category_id])
+    date                            DateTime
+    is_recurring                    Boolean
+    recurrency                      Recurrency @relation(fields: [recurrency_id], references: [recurrency_id])
+    user_payment_method_id          Int
+    expiration_id                   Int?
+    installments                    Boolean?
+    installments_payments           Int?
+}
+
+model Transaction_type {
+    transaction_type_id              Int   @id @default(autoincrement())
+    name                            String
+    description                     String?
+}
+
+model Category {
+    category_id                     Int   @id @default(autoincrement())
+    category_type                   Int        
+    name                            String @unique 
+}
+
+model Recurrency {
+    recurrency_id                   Int   @id @default(autoincrement())
+    name                            String @unique
+    interval                        Int
 }
