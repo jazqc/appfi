@@ -1,5 +1,5 @@
 import { prisma } from ".."
-import user, { IUser } from "../models/user"
+import { IUser } from "../models/user"
 
 
 //validación de registro de email

@@ -103,49 +103,49 @@ export const createUser = async (req: Request, res: Response) => {
 
 
 //Login de usuario
-export const login = async (req: Request, res: Response): Promise<void> => {
-    const { username, password }: IUser = req.body;
+// export const login = async (req: Request, res: Response): Promise<void> => {
+//     const { username, password }: IUser = req.body;
 
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                username: username
-            }
-        })
+//     try {
+//         const user = await prisma.user.findUnique({
+//             where: {
+//                 username: username
+//             }
+//         })
 
-        if (!user) {
-            res.status(400).json({
-                msg: "Usuario no registrado"
-            })
-            return
-        }
+//         if (!user) {
+//             res.status(400).json({
+//                 msg: "Usuario no registrado"
+//             })
+//             return
+//         }
 
-        const validatePassword = bcryptjs.compareSync(password, user.password);
-        if (!validatePassword) {
-            res.status(401).json({
-                msg: "password incorrecto"
-            });
-            return
-        };
+//         const validatePassword = bcryptjs.compareSync(password, user.password);
+//         if (!validatePassword) {
+//             res.status(401).json({
+//                 msg: "password incorrecto"
+//             });
+//             return
+//         };
 
-        const token = await generateJWT(user.id)
-        res.status(202).json({
-            user,
-            token
-        })
+//         const token = await generateJWT(user.user_id)
+//         res.status(202).json({
+//             user,
+//             token
+//         })
 
-        if (user.rol === ROLES.admin) {
-            console.log("el user es admin")
-        } else {
-            console.log("el user no es admin")
-        }
+//         if (user.rol === ROLES.admin) {
+//             console.log("el user es admin")
+//         } else {
+//             console.log("el user no es admin")
+//         }
 
 
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: "Error en el servidor"
-        })
-    }
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({
+//             msg: "Error en el servidor"
+//         })
+//     }
 
-}
+// }
