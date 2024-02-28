@@ -11,7 +11,7 @@ export interface IUser {
     last_name: string;
     birth_date: string;
     family_in_charge?: number;
-    User_payment_methods?: IUserPaymentMethod[]; 
+    user_payment_methods?: IUserPaymentMethod[]; 
     // transactions: ITransaction[]; 
   }
 

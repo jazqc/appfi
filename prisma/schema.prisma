@@ -1,53 +1,49 @@
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
   // url      = env("DATABASE_URL")
-    url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url       = env("POSTGRES_PRISMA_URL") 
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
-  user_id           Int       @id @default(autoincrement())
-  username          String    @unique
-  password          String
-  rol               String? @default("50yunu53r")
-  email             String    @unique
-  name              String
-  last_name         String
-  birth_date        DateTime
-  family_in_charge  Int?
-  User_payment_methods   User_payment_method[]
+  user_id              Int                   @id @default(autoincrement())
+  username             String                @unique
+  password             String
+  rol                  String?               @default("50yunu53r")
+  email                String                @unique
+  name                 String
+  last_name            String
+  birth_date           DateTime
+  family_in_charge     Int?
+  user_payment_methods User_payment_method[]
   // transactions Transaction[]
 }
 
-
 model Payment_method {
-  pm_type_id        Int       @id @default(autoincrement())
-  name              String
+  pm_type_id           Int                   @id @default(autoincrement())
+  name                 String
   user_payment_methods User_payment_method[]
 }
 
 model User_payment_method {
-  user_pm_id        Int       @id @default(autoincrement())
-  user_id           Int
-  type_id           Int
-  name              String
-  description       String?
-  set_alarm         Boolean
-  user              User      @relation(fields: [user_id], references: [user_id])
-  payment_method    Payment_method @relation(fields: [type_id], references: [pm_type_id])
-  expiration        Expirations?
+  user_pm_id     Int            @id @default(autoincrement())
+  user_id        Int
+  type_id        Int
+  name           String
+  description    String?
+  set_alarm      Boolean
+  user           User           @relation(fields: [user_id], references: [user_id])
+  payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
+  expiration     Expirations?
 }
 
 model Expirations {
-  expiration_id   Int    @id @default(autoincrement())
-  expiration_day  DateTime
-  user_pm_id      Int @unique
+  expiration_id       Int                 @id @default(autoincrement())
+  expiration_day      DateTime
+  user_pm_id          Int                 @unique
   user_payment_method User_payment_method @relation(fields: [user_pm_id], references: [user_pm_id])
 }
-
-
