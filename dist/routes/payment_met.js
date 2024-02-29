@@ -10,7 +10,6 @@ const paymentMethods_1 = require("../controllers/paymentMethods");
 const validateJWT_1 = __importDefault(require("../middlewares/validateJWT"));
 const router = (0, express_1.Router)();
 router.post("/addUserPaymentMethod", validateJWT_1.default, [
-    (0, express_validator_1.check)("user_id", 'el id del usuario es obligatorio').not().isEmpty(),
     (0, express_validator_1.check)("type_id", 'el tipo de método es obligatorio').not().isEmpty(),
     (0, express_validator_1.check)("name", 'el nombre del método es obligatorio').not().isEmpty(),
     recolectErrors_1.recolectErrors

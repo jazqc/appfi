@@ -9,7 +9,6 @@ const router = Router();
 router.post("/addUserPaymentMethod",
 validarJWT,
 [   
-    check ("user_id", 'el id del usuario es obligatorio').not().isEmpty(),
     check ("type_id", 'el tipo de método es obligatorio').not().isEmpty(), 
     check ("name", 'el nombre del método es obligatorio').not().isEmpty(),
     
