@@ -8,9 +8,11 @@ const prisma = new PrismaClient();
 export const addUserPaymentMethod = async (req: Request, res: Response) => {
     try {
         const userId: number = req.body.userConfirmed._id;
+        console.log(userId)
 
         const userPaymentMethodData: IUserPaymentMethod = req.body;
         const {
+            
             type_id,
             name,
             description,

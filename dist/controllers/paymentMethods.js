@@ -15,6 +15,7 @@ const prisma = new client_1.PrismaClient();
 const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.body.userConfirmed._id;
+        console.log(userId);
         const userPaymentMethodData = req.body;
         const { type_id, name, description, set_alarm } = userPaymentMethodData;
         const data = {
