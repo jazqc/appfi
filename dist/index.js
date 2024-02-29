@@ -23,39 +23,43 @@ server.listen();
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield server.app(req, res);
 });
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    // async function deleteAllPM() {
-    //    await prisma.payment_method.deleteMany();
-    //   }
-    //   deleteAllPM()
-    //    .catch((e) => {
-    //       throw e;
-    //    })
-    //    .finally(async () => {
-    //       await prisma.$disconnect();
-    //    });
-    // }
-    try {
-        const paymentMethods = yield exports.prisma.payment_method.createMany({
-            data: [
-                {
-                    name: "CREDIT",
-                },
-                {
-                    name: "DEBIT",
-                },
-                {
-                    name: "CASH",
-                },
-            ],
-        });
-        console.log(paymentMethods);
-        exports.prisma.$disconnect();
-    }
-    catch (error) {
-        console.log(error);
-        exports.prisma.$disconnect();
-    }
-});
-main();
+// const main = async () => {
+//   try {
+//     const paymentMethods = await prisma.payment_method.createMany({
+//       data: [
+//         {
+//           name: "Credit",
+//         },
+//         {
+//           name: "Debit",
+//         },
+//         {
+//           name: "Cash",
+//         },
+//       ],
+//     });
+//     console.log(paymentMethods);
+//     prisma.$disconnect();
+//   } catch (error) {
+//     console.log(error);
+//     prisma.$disconnect();
+//   }
+// };
+// main();
+// async function deleteAllPM() {
+//    try {
+//       await prisma.payment_method.deleteMany();
+//       await prisma.$executeRaw`ALTER SEQUENCE public."Payment_method_pm_type_id_seq" RESTART WITH 1`;
+//       console.log('All payment methods have been deleted and the sequence has been reset.');
+//    } catch (error) {
+//       console.error('Error deleting payment methods or resetting sequence:', error);
+//       throw error; 
+//    } finally {
+//       await prisma.$disconnect();
+//    }
+//   }
+//   deleteAllPM()
+//    .catch((error) => {
+//       console.error('Error in deleteAllPM:', error);
+//    });
 //# sourceMappingURL=index.js.map

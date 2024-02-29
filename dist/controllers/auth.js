@@ -90,7 +90,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
         prisma.$disconnect();
         res.json({
-            msg: "Usuario creado con éxito",
+            msg: "Usuario creado con éxito", user
         });
     }
     catch (error) {

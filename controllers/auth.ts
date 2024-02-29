@@ -102,7 +102,7 @@ export const createUser = async (req: Request, res: Response) => {
     prisma.$disconnect();
 
     res.json({
-      msg: "Usuario creado con éxito",
+      msg: "Usuario creado con éxito", user
     });
   } catch (error) {
     console.error(error);
