@@ -17,5 +17,14 @@ validarJWT,
  addUserPaymentMethod)
 
 
+router.post("/addExpirationDate"),
+validarJWT,
+[   
+    check ("expiration_day", 'la fecha de vencimiento es obligatoria').not().isEmpty(),
+    check ("user_pm_id", 'el user_pm_id es obligatorio').not().isEmpty(), 
+    
+    recolectErrors
+]
+
 export default router;
 
