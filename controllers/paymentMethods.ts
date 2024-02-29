@@ -1,30 +1,40 @@
 
-// import { Request, Response } from "express";
-// import { IUser } from "../models/user";
-// import { PrismaClient } from "@prisma/client";
-// import { IUserPaymentMethod } from "../models/payment_methods";
+import { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
+import { IUserPaymentMethod } from "../models/payment_methods";
 
+const prisma = new PrismaClient();
 
-// const prisma = new PrismaClient();
+export const addUserPaymentMethod = async (req: Request, res: Response) => {
+    try {
+        const userId: number = req.body.userConfirmed._id;
 
-// export const addUserPaymentMethod = async (req: Request, res: Response) => {
-//     try {
-//     const user = req.body.
-//     const userPaymentMethodData: IUserPaymentMethod = req.body
+        const userPaymentMethodData: IUserPaymentMethod = req.body;
+        const {
+            type_id,
+            name,
+            description,
+            set_alarm
+        } = userPaymentMethodData;
 
-//     const data = {
-//         user_id,
+        const data = {
+            user_id: userId,
+            type_id,
+            name,
+            description,
+            set_alarm,
+        };
 
+        const userPM = await prisma.user_payment_method.create({
+            data: data,
+        });
 
-//     }
-
-//     const userPM = new UserPaymentMethod(data)
-//     await prisma.user_payment_method.create()
-//     res.status(201).json({
-//         msg: "método de pago creado con éxito"
-//     })
-// }
-
-
-
-//   }
+        res.status(201).json({
+            msg: "método de pago creado con éxito",
+            userPM,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error al crear método de pago" });
+    }
+};

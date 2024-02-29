@@ -32,7 +32,7 @@ model User_payment_method {
  type_id        Int
  name           String
  description    String?
- set_alarm      Boolean
+ set_alarm      Boolean         @default(false)
  payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
  expiration     Expirations?
 }

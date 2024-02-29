@@ -3,7 +3,7 @@ import { IUser } from "../models/user";
 
 export interface IPaymentMethod {
     pm_type_id: number;
-    name: string;
+    name: string;  //Credit, Debit, Cash Cargados en DB
     user_payment_methods: IUserPaymentMethod[];
   }
   
@@ -14,7 +14,6 @@ export interface IUserPaymentMethod {
     name: string;
     description?: string;
     set_alarm: boolean;
-    user: IUser; 
     payment_method: IPaymentMethod;
     expiration?: IExpiration; 
   }

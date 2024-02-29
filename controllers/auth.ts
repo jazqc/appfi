@@ -29,20 +29,6 @@ export const createUser = async (req: Request, res: Response) => {
       userData.rol = ROLES.admin;
     }
 
-    //Validaciones
-    // const isValidPassword = (password: string): boolean => {
-
-    //     if (password.length < 8) {
-    //         return false;
-    //     }
-
-    //     return true;
-    // };
-
-    // if (!isValidPassword(password)) {
-    //     res.status(400).json({ msg: "La contraseña debe tener al menos 8 caracteres" });
-    //     return;
-    // }
 
     const parsedBirthDate = new Date(birth_date);
     if (isNaN(parsedBirthDate.getTime())) {
@@ -50,41 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
       return;
     }
 
-    //Chequeo de campos
-    // if (!username || !password || !email || !name || !last_name || !birth_date) {
-    //     res.json({
-    //         msg: "Faltan datos"
-    //     });
-    //     return;
-    // }
 
-    // const userInDB = await prisma.user.findUnique({
-    //     where: {
-    //         email: email
-    //     }
-    // });
-
-    // if (userInDB) {
-    //     res.json({
-    //         msg: "El email ya se encuentra registrado"
-    //     });
-    //     return;
-    // }
-
-    // const usernameInDB = await prisma.user.findUnique({
-    //     where: {
-    //         username: username
-    //     }
-    // });
-
-    // if (usernameInDB) {
-    //     res.json({
-    //         msg: "El username ya se encuentra registrado"
-    //     });
-    //     return;
-    // }
-
-    //Creación de usuario
 
     const user = await prisma.user.create({
       data: {
