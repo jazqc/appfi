@@ -2,12 +2,13 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { IUserPaymentMethod } from "../models/payment_methods";
+import { IUser } from "../models/user";
 
 const prisma = new PrismaClient();
 
 export const addUserPaymentMethod = async (req: Request, res: Response) => {
     try {
-        const userId: number = req.body.userConfirmed._id;
+      const userId: number = req.body.userConfirmed.user_id;
         console.log(userId)
 
         const userPaymentMethodData: IUserPaymentMethod = req.body;
