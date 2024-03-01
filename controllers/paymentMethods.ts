@@ -41,40 +41,36 @@ export const addUserPaymentMethod = async (req: Request, res: Response) => {
 };
 
 export const expirationDate = async (req: Request, res: Response) => {
-  try {
-     const userId: number = req.body.userConfirmed.user_id;
- 
-     const expirationData: IExpiration = req.body;
-     const {
-       expiration_day,
-       user_pm_id, 
-       user_payment_method
-     } = expirationData;
- 
-     const parsedDate = new Date(expiration_day);
-     if (isNaN(parsedDate.getTime())) {
-       res.status(400).json({ msg: "formato de fecha invalida" });
-       return;
-     }
- 
- 
-     const data = {
-       expiration_day: parsedDate,
-       user_pm_id,
-       user_payment_method: user_payment_method, 
-     }
- 
-
-     const pmExp = await prisma.expirations.create({
-       data: data,
-     });
- 
-
-     res.status(201).json({ msg: "Fecha de vencimiento creada exitosamente", pmExp });
-  }
-  catch (error) {
-     console.error(error);
-     res.status(500).json({ msg: "Error al crear fecha de vencimiento" });
-  }
- }
- 
+    try {
+       const userId: number = req.body.userConfirmed.user_id;
+       const expirationData: IExpiration = req.body;
+       const {
+         expiration_day,
+         user_pm_id,
+       } = expirationData;
+   
+       const parsedDate = new Date(expiration_day);
+       if (isNaN(parsedDate.getTime())) {
+         return res.status(400).json({ error: "Invalid date format" });
+       }
+   
+       const expiration = {
+         expiration_day: parsedDate,
+         user_pm_id: user_pm_id,
+         userPaymentMethod: {
+           connect: {
+             user_pm_id: user_pm_id,
+           },
+         },
+       };
+   
+       const newExp = await prisma.expirations.create({
+         data: expiration,
+       });
+   
+       return res.status(201).json({ message: "Expiration date created successfully", newExp });
+    } catch (error) {
+       console.error(error);
+       return res.status(500).json({ error: "Error creating expiration date" });
+    }
+   };

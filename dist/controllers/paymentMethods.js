@@ -9,13 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addUserPaymentMethod = void 0;
+exports.expirationDate = exports.addUserPaymentMethod = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.body.userConfirmed.user_id;
-        console.log(userId);
         const userPaymentMethodData = req.body;
         const { type_id, name, description, set_alarm } = userPaymentMethodData;
         const data = {
@@ -39,4 +38,33 @@ const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.addUserPaymentMethod = addUserPaymentMethod;
+const expirationDate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.body.userConfirmed.user_id;
+        const expirationData = req.body;
+        const { expiration_day, user_pm_id, } = expirationData;
+        const parsedDate = new Date(expiration_day);
+        if (isNaN(parsedDate.getTime())) {
+            return res.status(400).json({ error: "Invalid date format" });
+        }
+        const expiration = {
+            expiration_day: parsedDate,
+            user_pm_id: user_pm_id,
+            userPaymentMethod: {
+                connect: {
+                    user_pm_id: user_pm_id,
+                },
+            },
+        };
+        const newExp = yield prisma.expirations.create({
+            data: expiration,
+        });
+        return res.status(201).json({ message: "Expiration date created successfully", newExp });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Error creating expiration date" });
+    }
+});
+exports.expirationDate = expirationDate;
 //# sourceMappingURL=paymentMethods.js.map
