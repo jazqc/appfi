@@ -57,11 +57,11 @@ export const addExpirationDate = async (req: Request, res: Response) => {
        const expiration = {
          expiration_day: parsedDate,
          user_pm_id: user_pm_id,
-         userPaymentMethod: {
-           connect: {
-             user_pm_id: user_pm_id,
-           },
-         },
+        //  userPaymentMethod: {
+        //    connect: {
+        //      user_pm_id: user_pm_id,
+        //    },
+        //  },
        };
    
        const newExp = await prisma.expirations.create({
