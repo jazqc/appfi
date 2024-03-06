@@ -40,7 +40,7 @@ export const addUserPaymentMethod = async (req: Request, res: Response) => {
     }
 };
 
-export const expirationDate = async (req: Request, res: Response) => {
+export const addExpirationDate = async (req: Request, res: Response) => {
     try {
        const userId: number = req.body.userConfirmed.user_id;
        const expirationData: IExpiration = req.body;
