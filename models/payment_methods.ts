@@ -11,6 +11,7 @@ export interface IUserPaymentMethod {
     user_pm_id: number;
     user_id: number;
     type_id: number;
+    subtype: string;
     name: string;
     description?: string;
     set_alarm: boolean;
@@ -20,6 +21,7 @@ export interface IUserPaymentMethod {
   
 export interface IExpiration {
     expiration_id: number;
+    closing_day: Date;
     expiration_day: Date;
     user_pm_id: number;
     user_payment_method: IUserPaymentMethod;

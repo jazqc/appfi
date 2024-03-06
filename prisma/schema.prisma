@@ -30,17 +30,19 @@ model User_payment_method {
  user_pm_id     Int            @id @default(autoincrement())
  user_id        Int
  type_id        Int
+ subtype        String
  name           String
  description    String?
  set_alarm      Boolean         @default(false)
  payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
- expiration     Expirations?
+ expiration     Expirations[]
 }
 
 model Expirations {
  expiration_id       Int                 @id @default(autoincrement())
+ closing_day         DateTime
  expiration_day      DateTime
- user_pm_id          Int                 @unique
+ user_pm_id          Int                 
  user_payment_method User_payment_method @relation(fields: [user_pm_id], references: [user_pm_id])
 }
 

@@ -13,6 +13,7 @@ export const addUserPaymentMethod = async (req: Request, res: Response) => {
         const {
             
             type_id,
+            subtype,
             name,
             description,
             set_alarm
@@ -21,6 +22,7 @@ export const addUserPaymentMethod = async (req: Request, res: Response) => {
         const data = {
             user_id: userId,
             type_id,
+            subtype,
             name,
             description,
             set_alarm,
@@ -41,36 +43,42 @@ export const addUserPaymentMethod = async (req: Request, res: Response) => {
 };
 
 export const addExpirationDate = async (req: Request, res: Response) => {
-    try {
-       const userId: number = req.body.userConfirmed.user_id;
-       const expirationData: IExpiration = req.body;
-       const {
-         expiration_day,
-         user_pm_id,
-       } = expirationData;
-   
-       const parsedDate = new Date(expiration_day);
-       if (isNaN(parsedDate.getTime())) {
-         return res.status(400).json({ error: "Invalid date format" });
-       }
-   
-       const expiration = {
-         expiration_day: parsedDate,
-         user_pm_id: user_pm_id,
-        //  userPaymentMethod: {
-        //    connect: {
-        //      user_pm_id: user_pm_id,
-        //    },
-        //  },
-       };
-   
-       const newExp = await prisma.expirations.create({
-         data: expiration,
-       });
-   
-       return res.status(201).json({ message: "Expiration date created successfully", newExp });
-    } catch (error) {
-       console.error(error);
-       return res.status(500).json({ error: "Error creating expiration date" });
-    }
-   };
+  try {
+     const userId: number = req.body.userConfirmed.user_id;
+     const expirationData: IExpiration = req.body;
+     const {
+      closing_day,
+       expiration_day,
+       user_pm_id,
+     } = expirationData;
+ 
+     function parseDate(dateString: any) {
+      const parsedDate = new Date(dateString);
+      if (isNaN(parsedDate.getTime())) {
+         return null;
+      }
+      return parsedDate;
+     }
+     const parsedExpirationDate = parseDate(expiration_day);
+     const parsedClosingDate = parseDate(closing_day);
+
+     if (!parsedExpirationDate || !parsedClosingDate) {
+       return res.status(400).json({ error: "Invalid date format for expiration or closing day" });
+     }
+
+     const expiration = {
+       expiration_day: parsedExpirationDate,
+       closing_day: parsedClosingDate,
+       user_pm_id: user_pm_id,
+     };
+ 
+     const newExp = await prisma.expirations.create({
+       data: expiration,
+     });
+ 
+     return res.status(201).json({ message: "Expiration date created successfully", newExp });
+  } catch (error) {
+     console.error(error);
+     return res.status(500).json({ error: "Error creating expiration date" });
+  }
+};

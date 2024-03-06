@@ -14,12 +14,10 @@ router.post("/addUserPaymentMethod", validateJWT_1.default, [
     (0, express_validator_1.check)("name", 'el nombre del método es obligatorio').not().isEmpty(),
     recolectErrors_1.recolectErrors
 ], paymentMethods_1.addUserPaymentMethod);
-router.post("/addExpirationDate"),
-    validateJWT_1.default,
-    [
-        (0, express_validator_1.check)("expiration_day", 'la fecha de vencimiento es obligatoria').not().isEmpty(),
-        (0, express_validator_1.check)("user_pm_id", 'el user_pm_id es obligatorio').not().isEmpty(),
-        recolectErrors_1.recolectErrors
-    ];
+router.post("/addExpirationDate", validateJWT_1.default, [
+    (0, express_validator_1.check)("expiration_day", 'la fecha de vencimiento es obligatoria').not().isEmpty(),
+    (0, express_validator_1.check)("user_pm_id", 'el user_pm_id es obligatorio').not().isEmpty(),
+    recolectErrors_1.recolectErrors
+], paymentMethods_1.addExpirationDate);
 exports.default = router;
 //# sourceMappingURL=payment_met.js.map
