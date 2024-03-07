@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {check} from "express-validator";
 import { recolectErrors } from "../middlewares/recolectErrors";
-import { addExpirationDate, addUserPaymentMethod, getExpirationDates, getUserPaymentMethods } from "../controllers/paymentMethods";
+import { addExpirationDate, addUserPaymentMethod, getExpirationDates, getPaymentMethods, getUserPaymentMethods } from "../controllers/paymentMethods";
 import validarJWT from "../middlewares/validateJWT";
 
 
@@ -20,6 +20,8 @@ validarJWT,
  router.get("/getUserPaymentMethods",
  validarJWT,
   getUserPaymentMethods)
+
+router.get("getPaymentMethods", getPaymentMethods)
 
 router.post("/addExpirationDate",
 validarJWT,

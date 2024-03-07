@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExpirationDates = exports.addExpirationDate = exports.getUserPaymentMethods = exports.addUserPaymentMethod = void 0;
+exports.getExpirationDates = exports.addExpirationDate = exports.getPaymentMethods = exports.getUserPaymentMethods = exports.addUserPaymentMethod = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -57,6 +57,19 @@ const getUserPaymentMethods = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getUserPaymentMethods = getUserPaymentMethods;
+const getPaymentMethods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const paymentMethods = yield prisma.payment_method.findMany();
+        res.status(200).json({
+            data: paymentMethods,
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al traer los métodos de pago' });
+    }
+});
+exports.getPaymentMethods = getPaymentMethods;
 const addExpirationDate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.body.userConfirmed.user_id;
