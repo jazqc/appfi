@@ -18,12 +18,17 @@ model User {
  last_name            String
  birth_date           DateTime
  family_in_charge     Int?
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
 }
 
 model Payment_method {
  pm_type_id           Int                   @id @default(autoincrement())
- name                 String
+ en_name              String
+ es_name              String    
  user_payment_methods User_payment_method[]
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
 }
 
 model User_payment_method {
@@ -36,6 +41,8 @@ model User_payment_method {
  set_alarm      Boolean         @default(false)
  payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
  expiration     Expirations[]
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
 }
 
 model Expirations {
@@ -44,13 +51,18 @@ model Expirations {
  expiration_day      DateTime
  user_pm_id          Int                 
  user_payment_method User_payment_method @relation(fields: [user_pm_id], references: [user_pm_id])
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
 }
 
 model Category {
     category_id                     Int   @id @default(autoincrement())
     category_type                   Int        
-    name                            String @unique 
+    en_name              String     @unique
+    es_name              String     @unique
     transactions                    Transaction[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 model Transaction {
     transaction_id                 Int   @id @default(autoincrement())
@@ -69,13 +81,18 @@ model Transaction {
     expiration_id                   Int?
     installments                    Boolean?
     installments_payments           Int?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Transaction_type {
     transaction_type_id              Int   @id @default(autoincrement())
-    name                            String
+    en_name              String     @unique
+    es_name              String     @unique
     description                     String?
     transactions                    Transaction[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Recurrency {
@@ -83,4 +100,6 @@ model Recurrency {
     name                            String @unique
     interval                        Int
     transactions                    Transaction[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

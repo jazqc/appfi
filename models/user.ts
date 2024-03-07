@@ -11,6 +11,8 @@ export interface IUser {
     last_name: string;
     birth_date: string;
     family_in_charge?: number;
+    createdAt: Date;
+ updatedAt: Date;
     // transactions: ITransaction[]; 
   }
 

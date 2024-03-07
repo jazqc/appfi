@@ -3,8 +3,11 @@ import { IUser } from "../models/user";
 
 export interface IPaymentMethod {
     pm_type_id: number;
-    name: string;  //Credit, Debit, Cash Cargados en DB
+    en_name: string;
+    es_name: string;  //Credit, Debit, Cash Cargados en DB
     user_payment_methods: IUserPaymentMethod[];
+    createdAt: Date;
+ updatedAt: Date;
   }
   
 export interface IUserPaymentMethod {
@@ -16,7 +19,9 @@ export interface IUserPaymentMethod {
     description?: string;
     set_alarm: boolean;
     payment_method: IPaymentMethod;
-    expiration?: IExpiration; 
+    expiration?: IExpiration;
+    createdAt: Date;
+ updatedAt: Date;
   }
   
 export interface IExpiration {
@@ -25,6 +30,8 @@ export interface IExpiration {
     expiration_day: Date;
     user_pm_id: number;
     user_payment_method: IUserPaymentMethod;
+    createdAt: Date;
+ updatedAt: Date;
   }
 
   

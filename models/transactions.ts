@@ -12,22 +12,32 @@ interface Transaction {
     expiration_id?: number;
     installments?: boolean;
     installments_payments?: number;
+    createdAt: Date;
+ updatedAt: Date;
    }
    
    interface TransactionType {
     transaction_type_id: number;
-    name: string;
+    en_name: string;
+    es_name: string;
     description?: string;
+    createdAt: Date;
+ updatedAt: Date;
    }
    
    interface Category {
     category_id: number;
     category_type: number;
-    name: string;
+    en_name: string;
+    es_name: string;
+    createdAt: Date;
+ updatedAt: Date;
    }
    
    interface Recurrency {
     recurrency_id: number;
     name: string;
     interval: number;
+    createdAt: Date;
+ updatedAt: Date;
    }
