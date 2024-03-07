@@ -42,6 +42,24 @@ export const addUserPaymentMethod = async (req: Request, res: Response) => {
     }
 };
 
+export const getUserPaymentMethods = async (req: Request, res: Response) => {
+  try {
+     const userId: number = req.body.userConfirmed.user_id;
+     const userPaymentMethods = await prisma.user_payment_method.findMany({
+       where: {
+         user_id: userId,
+       },
+     });
+ 
+     res.status(200).json({
+       data: userPaymentMethods,
+     });
+  } catch (error) {
+     console.error(error);
+     res.status(500).json({ error: 'Error al traer los métodos de pago del usuario' });
+  }
+ };
+
 export const addExpirationDate = async (req: Request, res: Response) => {
   try {
      const userId: number = req.body.userConfirmed.user_id;
