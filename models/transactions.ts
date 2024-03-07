@@ -30,6 +30,7 @@ interface Transaction {
     category_type: number;
     en_name: string;
     es_name: string;
+    icon: string;
     createdAt: Date;
  updatedAt: Date;
    }
