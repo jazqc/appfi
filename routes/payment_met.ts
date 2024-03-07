@@ -21,7 +21,7 @@ validarJWT,
  validarJWT,
   getUserPaymentMethods)
 
-router.get("getPaymentMethods", getPaymentMethods)
+router.get("/getPaymentMethods", getPaymentMethods)
 
 router.post("/addExpirationDate",
 validarJWT,
