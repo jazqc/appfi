@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {check} from "express-validator";
 import { recolectErrors } from "../middlewares/recolectErrors";
-import { addExpirationDate, addUserPaymentMethod, getUserPaymentMethods } from "../controllers/paymentMethods";
+import { addExpirationDate, addUserPaymentMethod, getExpirationDates, getUserPaymentMethods } from "../controllers/paymentMethods";
 import validarJWT from "../middlewares/validateJWT";
 
 
@@ -30,6 +30,14 @@ validarJWT,
     
     recolectErrors
 ], addExpirationDate)
+
+router.get("/getPMethodExpirationDates", validarJWT,
+[   
+    check ("user_pm_id", 'el id del método de pago es obligatorio').not().isEmpty(),
+    recolectErrors
+],
+
+getExpirationDates)
 
 
 export default router;

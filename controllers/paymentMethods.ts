@@ -100,3 +100,22 @@ export const addExpirationDate = async (req: Request, res: Response) => {
      return res.status(500).json({ error: "Error creating expiration date" });
   }
 };
+
+export const getExpirationDates = async (req: Request, res: Response) => {
+  try {
+     const userId: number = req.body.userConfirmed.user_id;
+     const userPmId: number = req.body.user_pm_id;
+     const userPMethodExpirationDates = await prisma.expirations.findMany({
+       where: {
+         user_pm_id: userPmId,
+       },
+     });
+ 
+     res.status(200).json({
+       data: userPMethodExpirationDates,
+     });
+  } catch (error) {
+     console.error(error);
+     res.status(500).json({ error: 'Error al traer las fechas de cierre y vencimiento del método de pago' });
+  }
+ };

@@ -22,5 +22,9 @@ router.post("/addExpirationDate", validateJWT_1.default, [
     (0, express_validator_1.check)("user_pm_id", 'el user_pm_id es obligatorio').not().isEmpty(),
     recolectErrors_1.recolectErrors
 ], paymentMethods_1.addExpirationDate);
+router.get("/getPMethodExpirationDates", validateJWT_1.default, [
+    (0, express_validator_1.check)("user_pm_id", 'el id del método de pago es obligatorio').not().isEmpty(),
+    recolectErrors_1.recolectErrors
+], paymentMethods_1.getExpirationDates);
 exports.default = router;
 //# sourceMappingURL=payment_met.js.map

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addExpirationDate = exports.getUserPaymentMethods = exports.addUserPaymentMethod = void 0;
+exports.getExpirationDates = exports.addExpirationDate = exports.getUserPaymentMethods = exports.addUserPaymentMethod = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -90,4 +90,23 @@ const addExpirationDate = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.addExpirationDate = addExpirationDate;
+const getExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.body.userConfirmed.user_id;
+        const userPmId = req.body.user_pm_id;
+        const userPMethodExpirationDates = yield prisma.expirations.findMany({
+            where: {
+                user_pm_id: userPmId,
+            },
+        });
+        res.status(200).json({
+            data: userPMethodExpirationDates,
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al traer las fechas de cierre y vencimiento del método de pago' });
+    }
+});
+exports.getExpirationDates = getExpirationDates;
 //# sourceMappingURL=paymentMethods.js.map
