@@ -23,30 +23,29 @@ server.listen();
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield server.app(req, res);
 });
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const paymentMethods = yield exports.prisma.payment_method.createMany({
-            data: [
-                {
-                    name: "Credit",
-                },
-                {
-                    name: "Debit",
-                },
-                {
-                    name: "Cash",
-                },
-            ],
-        });
-        console.log(paymentMethods);
-        exports.prisma.$disconnect();
-    }
-    catch (error) {
-        console.log(error);
-        exports.prisma.$disconnect();
-    }
-});
-main();
+// const main = async () => {
+//   try {
+//     const paymentMethods = await prisma.payment_method.createMany({
+//       data: [
+//         {
+//           name: "Credit",
+//         },
+//         {
+//           name: "Debit",
+//         },
+//         {
+//           name: "Cash",
+//         },
+//       ],
+//     });
+//     console.log(paymentMethods);
+//     prisma.$disconnect();
+//   } catch (error) {
+//     console.log(error);
+//     prisma.$disconnect();
+//   }
+// };
+// main();
 // async function deleteAllPM() {
 //    try {
 //       await prisma.payment_method.deleteMany();

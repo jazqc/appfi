@@ -14,31 +14,31 @@ export default async (req: Request, res: Response) => {
   await server.app(req, res);
 };
 
-const main = async () => {
+// const main = async () => {
 
-  try {
-    const paymentMethods = await prisma.payment_method.createMany({
-      data: [
-        {
-          name: "Credit",
-        },
-        {
-          name: "Debit",
-        },
-        {
-          name: "Cash",
-        },
-      ],
-    });
-    console.log(paymentMethods);
-    prisma.$disconnect();
-  } catch (error) {
-    console.log(error);
-    prisma.$disconnect();
-  }
-};
+//   try {
+//     const paymentMethods = await prisma.payment_method.createMany({
+//       data: [
+//         {
+//           name: "Credit",
+//         },
+//         {
+//           name: "Debit",
+//         },
+//         {
+//           name: "Cash",
+//         },
+//       ],
+//     });
+//     console.log(paymentMethods);
+//     prisma.$disconnect();
+//   } catch (error) {
+//     console.log(error);
+//     prisma.$disconnect();
+//   }
+// };
 
-main();
+// main();
 
 // async function deleteAllPM() {
 //    try {
