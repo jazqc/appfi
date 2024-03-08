@@ -44,8 +44,9 @@ interface Transaction {
    
    interface Recurrency {
     recurrency_id: number;
-    name: string;
-    interval: number;
+    en_name: string;
+    es_name: string;
+    interval: string;
     createdAt: Date;
  updatedAt: Date;
    }

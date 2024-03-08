@@ -166,11 +166,6 @@ try {
       },
       {
         transaction_type_id: 3,
-        en_name: "Emergency fund",
-        es_name: "Fondo de emergencia"
-      },
-      {
-        transaction_type_id: 3,
         en_name: "Cryptocurrencies",
         es_name: "Criptomonedas"
       },
@@ -183,6 +178,32 @@ try {
   prisma.$disconnect();
 }
 
+try {
+  const recurrency = await prisma.recurrency.createMany({
+    data: [
+      {
+        en_name: "Annual",
+        es_name: "Anual"
+        interval: "day"
+      },
+      {
+          en_name: "Monthly",
+          es_name: "Mensual"
+          interval: "week"
+      },
+      {
+        en_name: "Weekly",
+        es_name: "Semanal"
+        interval: "semana"
+      },
+    ],
+  });
+  console.log(recurrency);
+  prisma.$disconnect();
+} catch (error) {
+  console.log(error);
+  prisma.$disconnect();
+}
 };
 
 main();
