@@ -56,12 +56,13 @@ model Expirations {
 }
 
 model Category {
-    category_id                     Int   @id @default(autoincrement())
-    category_type                   Int        
+    category_id                     Int   @id @default(autoincrement())      
     en_name              String     @unique
     es_name              String     @unique
     icon                 String?
     transactions                    Transaction[]
+    transaction_type_id              Int
+    transaction_type                 Transaction_type     @relation(fields: [transaction_type_id], references: [transaction_type_id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -91,6 +92,7 @@ model Transaction_type {
     en_name              String     @unique
     es_name              String     @unique
     description                     String?
+    categories                       Category[]
     transactions                    Transaction[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

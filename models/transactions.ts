@@ -21,19 +21,26 @@ interface Transaction {
     en_name: string;
     es_name: string;
     description?: string;
+    transactions: Transaction[]; 
+    categories: Category[];
     createdAt: Date;
- updatedAt: Date;
+    updatedAt: Date;
    }
    
+
    interface Category {
     category_id: number;
     category_type: number;
     en_name: string;
     es_name: string;
     icon?: string;
+    transactions: Transaction[]; 
+    transaction_type_id: number;
+    transaction_type: TransactionType; 
     createdAt: Date;
- updatedAt: Date;
+    updatedAt: Date;
    }
+
    
    interface Recurrency {
     recurrency_id: number;

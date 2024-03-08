@@ -12,7 +12,7 @@ export interface IUser {
     birth_date: string;
     family_in_charge?: number;
     createdAt: Date;
- updatedAt: Date;
+   updatedAt: Date;
     // transactions: ITransaction[]; 
   }
 
