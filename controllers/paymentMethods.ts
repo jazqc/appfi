@@ -132,3 +132,25 @@ export const getExpirationDates = async (req: Request, res: Response) => {
      res.status(500).json({ error: 'Error al traer las fechas de cierre y vencimiento del método de pago' });
   }
  };
+
+// export const modifyExpirationDates = async (req: Request, res: Response) => {
+//     const user_id: number = req.body.userConfirmed.user_id;
+//     const {expiration_id, closing_day, expiration_day}: IExpiration = req.body.expiration_id;
+//     try {
+//       const modifiedExpiration = await prisma.expirations.update({
+//         where: {
+//           expiration_id: expiration_id,
+//         },
+//         data: {
+//           closing_day: closing_day,
+//           expiration_day: expiration_day
+//         }
+//      });
+//      res.status(200).json({msg: "fechas modificadas con éxito",
+//       data: modifiedExpiration,
+//     });
+//  } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Error al modificar las fechas' });
+//  }
+// }
