@@ -30,29 +30,29 @@ const main = async () => {
 
 
   //Transaction type
-  try {
-      const transactionTypes = await prisma.transaction_type.createMany({
-        data: [
-          {
-            en_name: "Expense",
-            es_name: "Gasto"
-          },
-          {
-              en_name: "Income",
-              es_name: "Ingreso"
-          },
-          {
-            en_name: "Ahorro/Inversión",
-            es_name: "Saving/Investment"
-          },
-        ],
-      });
-      console.log(transactionTypes);
-      prisma.$disconnect();
-    } catch (error) {
-      console.log(error);
-      prisma.$disconnect();
-    }
+//   try {
+//       const transactionTypes = await prisma.transaction_type.createMany({
+//         data: [
+//           {
+//             en_name: "Expense",
+//             es_name: "Gasto"
+//           },
+//           {
+//               en_name: "Income",
+//               es_name: "Ingreso"
+//           },
+//           {
+//             en_name: "Ahorro/Inversión",
+//             es_name: "Saving/Investment"
+//           },
+//         ],
+//       });
+//       console.log(transactionTypes);
+//       prisma.$disconnect();
+//     } catch (error) {
+//       console.log(error);
+//       prisma.$disconnect();
+//     }
   
 //Categorías
 
@@ -116,8 +116,8 @@ try {
       },
       {
         transaction_type_id: 1,
-        en_name: "Other",
-        es_name: "Otra"
+        en_name: "Other expense",
+        es_name: "Otro gasto"
       },
       {
         transaction_type_id: 2,
@@ -141,8 +141,8 @@ try {
       },
       {
         transaction_type_id: 2,
-        en_name: "Other",
-        es_name: "Otra"
+        en_name: "Other income",
+        es_name: "Otro ingreso"
       },
       {
         transaction_type_id: 3,
@@ -166,13 +166,13 @@ try {
       },
       {
         transaction_type_id: 3,
-        en_name: "Emergency fund",
-        es_name: "Fondo de emergencia"
+        en_name: "Cryptocurrencies",
+        es_name: "Criptomonedas"
       },
       {
         transaction_type_id: 3,
-        en_name: "Cryptocurrencies",
-        es_name: "Criptomonedas"
+        en_name: "Other saving",
+        es_name: "Otro ahorro"
       },
     ],
   });
