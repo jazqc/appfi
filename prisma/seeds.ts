@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-const main = async () => {
+// const main = async () => {
 
 
   //métodos de pago
@@ -30,29 +30,29 @@ const main = async () => {
 
 
   //Transaction type
-  try {
-      const transactionTypes = await prisma.transaction_type.createMany({
-        data: [
-          {
-            en_name: "Expense",
-            es_name: "Gasto"
-          },
-          {
-              en_name: "Income",
-              es_name: "Ingreso"
-          },
-          {
-            en_name: "Ahorro/Inversión",
-            es_name: "Saving/Investment"
-          },
-        ],
-      });
-      console.log(transactionTypes);
-      prisma.$disconnect();
-    } catch (error) {
-      console.log(error);
-      prisma.$disconnect();
-    }
+  // try {
+  //     const transactionTypes = await prisma.transaction_type.createMany({
+  //       data: [
+  //         {
+  //           en_name: "Expense",
+  //           es_name: "Gasto"
+  //         },
+  //         {
+  //             en_name: "Income",
+  //             es_name: "Ingreso"
+  //         },
+  //         {
+  //           en_name: "Ahorro/Inversión",
+  //           es_name: "Saving/Investment"
+  //         },
+  //       ],
+  //     });
+  //     console.log(transactionTypes);
+  //     prisma.$disconnect();
+  //   } catch (error) {
+  //     console.log(error);
+  //     prisma.$disconnect();
+  //   }
   
 //Categorías
 
@@ -183,6 +183,39 @@ const main = async () => {
 //   prisma.$disconnect();
 // }
 
-};
+// }
+// try {
+//   const recurrency = await prisma.recurrency.createMany({
+//     data: [
+//       {
+//         en_name: "Annual",
+//         es_name: "Anual",
+//         interval: "year",
+//       },
+//       {
+//         en_name: "Monthly",
+//         es_name: "Mensual",
+//         interval: "month",
+//       },
+//       {
+//         en_name: "Weekly",
+//         es_name: "Semanal",
+//         interval: "week",
+//       },
+//       {
+//         en_name: "Daily",
+//         es_name: "Diario",
+//         interval: "day",
+//       },
+//     ],
+//   });
 
-main();
+//   console.log(recurrency);
+//   await prisma.$disconnect();
+// } catch (error) {
+//   console.log(error);
+//   await prisma.$disconnect();
+// }
+// }
+
+// main();

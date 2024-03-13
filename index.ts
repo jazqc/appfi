@@ -66,9 +66,9 @@ export default async (req: Request, res: Response) => {
   //  async function deleteAllUserPM() {
   //   try {
  
-  //      await prisma.user_payment_method.deleteMany();
+  //      await prisma.category.deleteMany();
  
-  //      await prisma.$executeRaw`ALTER SEQUENCE public."Payment_method_pm_type_id_seq" RESTART WITH 1`;
+  //      await prisma.$executeRaw`ALTER SEQUENCE public."Category_category_id_seq" RESTART WITH 1`;
    
   //      console.log('All payment methods have been deleted and the sequence has been reset.');
   //   } catch (error) {
@@ -80,8 +80,8 @@ export default async (req: Request, res: Response) => {
   //   }
   //  }
    
-//    deleteAllUserPM()
-//     .catch((error) => {
-//        console.error('Error in deleteAllPM:', error);
+  //  deleteAllUserPM()
+  //   .catch((error) => {
+  //      console.error('Error in deleteAllPM:', error);
    
-//     });
+  //   });

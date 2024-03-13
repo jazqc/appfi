@@ -100,8 +100,9 @@ model Transaction_type {
 
 model Recurrency {
     recurrency_id                   Int   @id @default(autoincrement())
-    name                            String @unique
-    interval                        Int
+    en_name                          String @unique
+    es_name                          String @unique
+    interval                        String
     transactions                    Transaction[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

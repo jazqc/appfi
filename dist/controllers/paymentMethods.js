@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExpirationDates = exports.addExpirationDate = exports.getPaymentMethods = exports.getUserPaymentMethods = exports.addUserPaymentMethod = void 0;
+exports.modifyExpirationDates = exports.getExpirationDates = exports.addExpirationDate = exports.getPaymentMethods = exports.getUserPaymentMethods = exports.addUserPaymentMethod = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -122,4 +122,27 @@ const getExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.getExpirationDates = getExpirationDates;
+const modifyExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user_id = req.body.userConfirmed.user_id;
+    const { expiration_id, closing_day, expiration_day } = req.body.expiration_id;
+    try {
+        const modifiedExpiration = yield prisma.expirations.update({
+            where: {
+                expiration_id: expiration_id,
+            },
+            data: {
+                closing_day: closing_day,
+                expiration_day: expiration_day
+            }
+        });
+        res.status(200).json({ msg: "fechas modificadas con éxito",
+            data: modifiedExpiration,
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al modificar las fechas' });
+    }
+});
+exports.modifyExpirationDates = modifyExpirationDates;
 //# sourceMappingURL=paymentMethods.js.map

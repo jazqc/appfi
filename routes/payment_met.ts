@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {check} from "express-validator";
 import { recolectErrors } from "../middlewares/recolectErrors";
-import { addExpirationDate, addUserPaymentMethod, getExpirationDates, getPaymentMethods, getUserPaymentMethods } from "../controllers/paymentMethods";
+import { addExpirationDate, addUserPaymentMethod, getExpirationDates, getPaymentMethods, getUserPaymentMethods, modifyExpirationDates } from "../controllers/paymentMethods";
 import validarJWT from "../middlewares/validateJWT";
 
 
@@ -40,6 +40,12 @@ router.get("/getPMethodExpirationDates", validarJWT,
 ],
 
 getExpirationDates)
+router.patch("/modifyExpirationDates", validarJWT,
+    check("expiration_id", 'El id es obligatorio').not().isEmpty(),
+    check("closing_day", "La fecha de cierre es obligatoria").not().isEmpty(),
+    check("expiration_day", "la fecha de vencimiento es obligatoria").not().isEmpty(),
+    modifyExpirationDates
+)
 
 
 export default router;
