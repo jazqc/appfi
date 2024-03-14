@@ -135,7 +135,7 @@ export const getExpirationDates = async (req: Request, res: Response) => {
 
 export const modifyExpirationDates = async (req: Request, res: Response) => {
     const user_id: number = req.body.userConfirmed.user_id;
-    const {expiration_id, closing_day, expiration_day}: IExpiration = req.body.expiration_id;
+    const {expiration_id, closing_day, expiration_day}: IExpiration = req.body
     try {
       const modifiedExpiration = await prisma.expirations.update({
         where: {

@@ -124,7 +124,7 @@ const getExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, funct
 exports.getExpirationDates = getExpirationDates;
 const modifyExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user_id = req.body.userConfirmed.user_id;
-    const { expiration_id, closing_day, expiration_day } = req.body.expiration_id;
+    const { expiration_id, closing_day, expiration_day } = req.body;
     try {
         const modifiedExpiration = yield prisma.expirations.update({
             where: {
