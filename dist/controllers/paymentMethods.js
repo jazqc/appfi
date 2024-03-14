@@ -125,14 +125,26 @@ exports.getExpirationDates = getExpirationDates;
 const modifyExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user_id = req.body.userConfirmed.user_id;
     const { expiration_id, closing_day, expiration_day } = req.body;
+    function parseDate(dateString) {
+        const parsedDate = new Date(dateString);
+        if (isNaN(parsedDate.getTime())) {
+            return null;
+        }
+        return parsedDate;
+    }
+    const parsedExpirationDate = parseDate(expiration_day);
+    const parsedClosingDate = parseDate(closing_day);
+    if (!parsedExpirationDate || !parsedClosingDate) {
+        return res.status(400).json({ error: "Invalid date format for expiration or closing day" });
+    }
     try {
         const modifiedExpiration = yield prisma.expirations.update({
             where: {
                 expiration_id: expiration_id,
             },
             data: {
-                closing_day: closing_day,
-                expiration_day: expiration_day
+                closing_day: parsedClosingDate,
+                expiration_day: parsedExpirationDate
             }
         });
         res.status(200).json({ msg: "fechas modificadas con éxito",
