@@ -2,6 +2,7 @@ import express, {Express} from "express";
 import cors from "cors";
 import authRoutes from "../routes/auth"
 import paymentMethodsRoutes from "../routes/payment_met"
+import transactionsRoutes from "../routes/transaction"
 
 
 
@@ -11,6 +12,7 @@ export class Server {
     port: string | number | undefined
     authPath: string
     paymentMethodsPath: string
+    transactionsPath: string
 
 
     constructor() {
@@ -18,6 +20,7 @@ export class Server {
         this.port = process.env.PORT;
         this.authPath = '/auth';
         this.paymentMethodsPath = '/payment_met'
+        this.transactionsPath = '/transaction'
 
         this.middlewares()
         this.routes()
@@ -33,6 +36,7 @@ export class Server {
     routes(): void {
         this.app.use(this.authPath, authRoutes)
         this.app.use(this.paymentMethodsPath, paymentMethodsRoutes)
+        this.app.use(this.transactionsPath, transactionsRoutes)
  
     }
 

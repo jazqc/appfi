@@ -94,7 +94,7 @@ export const addExpirationDate = async (req: Request, res: Response) => {
      const parsedClosingDate = parseDate(closing_day);
 
      if (!parsedExpirationDate || !parsedClosingDate) {
-       return res.status(400).json({ error: "Invalid date format for expiration or closing day" });
+       return res.status(400).json({ error: "Formato de fecha invalido" });
      }
 
      const expiration = {
@@ -107,10 +107,10 @@ export const addExpirationDate = async (req: Request, res: Response) => {
        data: expiration,
      });
  
-     return res.status(201).json({ message: "Expiration date created successfully", newExp });
+     return res.status(201).json({ message: "Fechas agregadas correctamente", newExp });
   } catch (error) {
      console.error(error);
-     return res.status(500).json({ error: "Error creating expiration date" });
+     return res.status(500).json({ error: "Error al crear las fechas" });
   }
 };
 
@@ -147,7 +147,7 @@ export const modifyExpirationDates = async (req: Request, res: Response) => {
      const parsedClosingDate = parseDate(closing_day);
 
      if (!parsedExpirationDate || !parsedClosingDate) {
-       return res.status(400).json({ error: "Invalid date format for expiration or closing day" });
+       return res.status(400).json({ error: "Formato de fecha invalido" });
      }
     try {
       const modifiedExpiration = await prisma.expirations.update({
@@ -159,7 +159,7 @@ export const modifyExpirationDates = async (req: Request, res: Response) => {
           expiration_day: parsedExpirationDate
         }
      });
-     res.status(200).json({msg: "fechas modificadas con éxito",
+     res.status(200).json({msg: "Fechas modificadas",
       data: modifiedExpiration,
     });
  } catch (error) {

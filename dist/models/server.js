@@ -8,12 +8,14 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_1 = __importDefault(require("../routes/auth"));
 const payment_met_1 = __importDefault(require("../routes/payment_met"));
+const transaction_1 = __importDefault(require("../routes/transaction"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
         this.port = process.env.PORT;
         this.authPath = '/auth';
         this.paymentMethodsPath = '/payment_met';
+        this.transactionsPath = '/transaction';
         this.middlewares();
         this.routes();
     }
@@ -24,6 +26,7 @@ class Server {
     routes() {
         this.app.use(this.authPath, auth_1.default);
         this.app.use(this.paymentMethodsPath, payment_met_1.default);
+        this.app.use(this.transactionsPath, transaction_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

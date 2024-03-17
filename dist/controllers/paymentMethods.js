@@ -85,7 +85,7 @@ const addExpirationDate = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const parsedExpirationDate = parseDate(expiration_day);
         const parsedClosingDate = parseDate(closing_day);
         if (!parsedExpirationDate || !parsedClosingDate) {
-            return res.status(400).json({ error: "Invalid date format for expiration or closing day" });
+            return res.status(400).json({ error: "Formato de fecha invalido" });
         }
         const expiration = {
             expiration_day: parsedExpirationDate,
@@ -95,11 +95,11 @@ const addExpirationDate = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const newExp = yield prisma.expirations.create({
             data: expiration,
         });
-        return res.status(201).json({ message: "Expiration date created successfully", newExp });
+        return res.status(201).json({ message: "Fechas agregadas correctamente", newExp });
     }
     catch (error) {
         console.error(error);
-        return res.status(500).json({ error: "Error creating expiration date" });
+        return res.status(500).json({ error: "Error al crear las fechas" });
     }
 });
 exports.addExpirationDate = addExpirationDate;
@@ -135,7 +135,7 @@ const modifyExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, fu
     const parsedExpirationDate = parseDate(expiration_day);
     const parsedClosingDate = parseDate(closing_day);
     if (!parsedExpirationDate || !parsedClosingDate) {
-        return res.status(400).json({ error: "Invalid date format for expiration or closing day" });
+        return res.status(400).json({ error: "Formato de fecha invalido" });
     }
     try {
         const modifiedExpiration = yield prisma.expirations.update({
@@ -147,7 +147,7 @@ const modifyExpirationDates = (req, res) => __awaiter(void 0, void 0, void 0, fu
                 expiration_day: parsedExpirationDate
             }
         });
-        res.status(200).json({ msg: "fechas modificadas con éxito",
+        res.status(200).json({ msg: "Fechas modificadas",
             data: modifiedExpiration,
         });
     }

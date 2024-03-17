@@ -59,123 +59,123 @@ const prisma = new PrismaClient()
 // try {
 //   const categories = await prisma.category.createMany({
 //     data: [
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Housing",
-//         es_name: "Vivienda"
-//       },
-//       {
-//         transaction_type_id: 1,
-//           en_name: "Food",
-//           es_name: "Alimentación"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Transportation",
-//         es_name: "Transporte"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Health",
-//         es_name: "Salud"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Entertainment",
-//         es_name: "Entretenimiento"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Education",
-//         es_name: "Educación"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Personal Care",
-//         es_name: "Cuidado personal"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Gifts",
-//         es_name: "Regalos"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Clothing",
-//         es_name: "Vestimenta"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Social outings",
-//         es_name: "Salidas"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Debts",
-//         es_name: "Deudas"
-//       },
-//       {
-//         transaction_type_id: 1,
-//         en_name: "Other expense",
-//         es_name: "Otro gasto"
-//       },
-//       {
-//         transaction_type_id: 2,
-//         en_name: "Salary",
-//         es_name: "Salario"
-//       },
-//       {
-//         transaction_type_id: 2,
-//         en_name: "Sale",
-//         es_name: "Venta"
-//       },
-//       {
-//         transaction_type_id: 2,
-//         en_name: "Interests & Investment Income",
-//         es_name: "Intereses y ganancia de inversiones"
-//       },
-//       {
-//         transaction_type_id: 2,
-//         en_name: "Rent",
-//         es_name: "Renta"
-//       },
-//       {
-//         transaction_type_id: 2,
-//         en_name: "Other income",
-//         es_name: "Otro ingreso"
-//       },
-//       {
-//         transaction_type_id: 3,
-//         en_name: "Equity income",
-//         es_name: "Renta variable"
-//       },
-//       {
-//         transaction_type_id: 3,
-//         en_name: "Fixed income",
-//         es_name: "Renta fija"
-//       },
-//       {
-//         transaction_type_id: 3,
-//         en_name: "Foreign Currency",
-//         es_name: "Moneda extranjera"
-//       },
-//       {
-//         transaction_type_id: 3,
-//         en_name: "Emergency fund",
-//         es_name: "Fondo de emergencia"
-//       },
-//       {
-//         transaction_type_id: 3,
-//         en_name: "Cryptocurrencies",
-//         es_name: "Criptomonedas"
-//       },
-//       {
-//         transaction_type_id: 3,
-//         en_name: "Other saving",
-//         es_name: "Otro ahorro"
-//       },
-//     ],
-//   });
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Housing",
+      //   es_name: "Vivienda"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //     en_name: "Food",
+      //     es_name: "Alimentación"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Transportation",
+      //   es_name: "Transporte"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Health",
+      //   es_name: "Salud"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Entertainment",
+      //   es_name: "Entretenimiento"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Education",
+      //   es_name: "Educación"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Personal Care",
+      //   es_name: "Cuidado personal"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Gifts",
+      //   es_name: "Regalos"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Clothing",
+      //   es_name: "Vestimenta"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Social outings",
+      //   es_name: "Salidas"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Debts",
+      //   es_name: "Deudas"
+      // },
+      // {
+      //   transaction_type_id: 1,
+      //   en_name: "Other expense",
+      //   es_name: "Otro gasto"
+      // },
+      // {
+      //   transaction_type_id: 2,
+      //   en_name: "Salary",
+      //   es_name: "Salario"
+      // },
+      // {
+      //   transaction_type_id: 2,
+      //   en_name: "Sale",
+      //   es_name: "Venta"
+      // },
+      // {
+      //   transaction_type_id: 2,
+      //   en_name: "Interests & Investment Income",
+      //   es_name: "Intereses y ganancia de inversiones"
+      // },
+      // {
+      //   transaction_type_id: 2,
+      //   en_name: "Rent",
+      //   es_name: "Renta"
+      // },
+      // {
+      //   transaction_type_id: 2,
+      //   en_name: "Other income",
+      //   es_name: "Otro ingreso"
+      // },
+      // {
+      //   transaction_type_id: 3,
+      //   en_name: "Equity income",
+      //   es_name: "Renta variable"
+      // },
+      // {
+      //   transaction_type_id: 3,
+      //   en_name: "Fixed income",
+      //   es_name: "Renta fija"
+      // },
+      // {
+      //   transaction_type_id: 3,
+      //   en_name: "Foreign Currency",
+      //   es_name: "Moneda extranjera"
+      // },
+      // {
+      //   transaction_type_id: 3,
+      //   en_name: "Emergency fund",
+      //   es_name: "Fondo de emergencia"
+      // },
+      // {
+      //   transaction_type_id: 3,
+      //   en_name: "Cryptocurrencies",
+      //   es_name: "Criptomonedas"
+      // },
+      // {
+      //   transaction_type_id: 3,
+      //   en_name: "Other saving",
+      //   es_name: "Otro ahorro"
+      // },
+  //   ],
+  // });
 //   console.log(categories);
 //   prisma.$disconnect();
 // } catch (error) {

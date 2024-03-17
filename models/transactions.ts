@@ -1,13 +1,13 @@
-interface Transaction {
+interface ITransaction {
     transaction_id: number;
     transaction_type_id: number;
     amount: number;
     name: string;
     description?: string;
-    category?: Category;
+    category_id: number;
     date: Date;
     is_recurring: boolean;
-    recurrency?: Recurrency;
+    recurrency_id: number;
     user_payment_method_id: number;
     expiration_id?: number;
     installments?: boolean;
@@ -16,32 +16,32 @@ interface Transaction {
  updatedAt: Date;
    }
    
-   interface TransactionType {
+   interface ITransactionType {
     transaction_type_id: number;
     en_name: string;
     es_name: string;
     description?: string;
-    transactions: Transaction[]; 
-    categories: Category[];
+    transactions: ITransaction[]; 
+    categories: ICategory[];
     createdAt: Date;
     updatedAt: Date;
    }
    
 
-   interface Category {
+   interface ICategory {
     category_id: number;
     en_name: string;
     es_name: string;
     icon?: string;
-    transactions: Transaction[]; 
+    transactions: ITransaction[]; 
     transaction_type_id: number;
-    transaction_type: TransactionType; 
+    transaction_type: ITransactionType; 
     createdAt: Date;
     updatedAt: Date;
    }
 
    
-   interface Recurrency {
+   interface IRecurrency {
     recurrency_id: number;
     en_name: string;
     es_name: string;
