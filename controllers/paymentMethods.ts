@@ -61,6 +61,22 @@ export const getUserPaymentMethods = async (req: Request, res: Response) => {
   }
  };
 
+//  export const modifyUserPaymentMethods = async (req: Request, res: Response) => {
+//   try {
+//     const userId: number = req.body.userConfirmed.user_id;
+//     const userPaymentMethodToModify = req.body
+//     const {user_pm_id} = userPaymentMethodToModify
+//     const modifyUserPaymethMethodData = await prisma.user_payment_method.findUnique({
+//       where: {
+//         user_pm_id: userPaymentMethodToModify
+//       }
+//     })
+//   } catch (error) {
+    
+//   }
+
+//  }
+
  export const getPaymentMethods = async (req: Request, res: Response) => {
   try {
      const paymentMethods = await prisma.payment_method.findMany();

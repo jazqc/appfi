@@ -20,6 +20,7 @@ model User {
  family_in_charge     Int?
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
+ deleted Boolean @default(false)           
 }
 
 model Payment_method {
@@ -29,6 +30,7 @@ model Payment_method {
  user_payment_methods User_payment_method[]
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
+ deleted Boolean @default(false)
 }
 
 model User_payment_method {
@@ -44,6 +46,7 @@ model User_payment_method {
  transactions   Transaction[] 
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
+ deleted Boolean @default(false)
 }
 
 model Expirations {
@@ -54,6 +57,7 @@ model Expirations {
  user_payment_method User_payment_method @relation(fields: [user_pm_id], references: [user_pm_id])
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
+ deleted Boolean @default(false)
 }
 
 model Category {
@@ -66,6 +70,7 @@ model Category {
     transaction_type                 Transaction_type     @relation(fields: [transaction_type_id], references: [transaction_type_id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    deleted Boolean @default(false)
 }
 model Transaction {
     transaction_id                 Int   @id @default(autoincrement())
@@ -87,6 +92,7 @@ model Transaction {
     installments_payments           Int?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    deleted Boolean @default(false)
 }
 
 model Transaction_type {
@@ -98,6 +104,7 @@ model Transaction_type {
     transactions                    Transaction[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    deleted Boolean @default(false)
 }
 
 model Recurrency {
@@ -108,4 +115,5 @@ model Recurrency {
     transactions                    Transaction[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    deleted Boolean @default(false)
 }
