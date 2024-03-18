@@ -18,6 +18,12 @@ router.post("/register", [
     (0, express_validator_1.check)("birth_date").not().isEmpty(),
     recolectErrors_1.recolectErrors
 ], auth_1.createUser);
-router.post("/login", auth_2.login);
+router.post("/login", [(0, express_validator_1.check)("username", 'el nombre de usuario es obligatorio').not().isEmpty(),
+    (0, express_validator_1.check)("password", 'el password debe ser de mínimo 8 digitos').not().isEmpty(),
+    recolectErrors_1.recolectErrors
+], auth_2.login);
+router.post("/resetPassword", [
+    (0, express_validator_1.check)("email", 'el email es obligatorio').isEmail()
+], auth_1.resetPassword);
 exports.default = router;
 //# sourceMappingURL=auth.js.map

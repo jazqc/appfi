@@ -12,13 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.createUser = void 0;
+exports.resetPassword = exports.login = exports.createUser = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const client_1 = require("@prisma/client");
 const constants_1 = require("../helpers/constants");
 const generateJWT_1 = require("../helpers/generateJWT");
 const dateParser_1 = require("../helpers/dateParser");
+const mailer_1 = require("../mailer/mailer");
 const prisma = new client_1.PrismaClient();
+//Registro de usuario
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
@@ -106,4 +108,24 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+// resetPassword
+const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const user = yield prisma.user.findUnique({
+        where: { email: email }
+    });
+    if (!user) {
+        return res.status(400).json({
+            msg: "Usuario inexistente",
+        });
+    }
+    const token = yield (0, generateJWT_1.generateJWT)(user.user_id);
+    res.status(202).json({
+        user,
+        token,
+    });
+    yield (0, mailer_1.sendToken)(email, token);
+    res.send("Email enviado");
+});
+exports.resetPassword = resetPassword;
 //# sourceMappingURL=auth.js.map

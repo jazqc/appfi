@@ -5,6 +5,8 @@ import {PrismaClient} from "@prisma/client";
 import { ROLES } from "../helpers/constants";
 import { generateJWT } from "../helpers/generateJWT";
 import { parseDate } from "../helpers/dateParser";
+import jwt from "jsonwebtoken";
+import { sendToken } from "../mailer/mailer";
 
 const prisma = new PrismaClient();
 
@@ -111,3 +113,27 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
+
+// resetPassword
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const {email} = req.body;
+  const user = await prisma.user.findUnique({
+    where: {email: email}
+  })
+  if (!user) {
+    return res.status(400).json({
+      msg: "Usuario inexistente",
+    });
+    
+  }
+  const token = await generateJWT(user.user_id);
+  res.status(202).json({
+    user,
+    token,
+  });
+
+  await sendToken(email, token)
+  res.send("Email enviado")
+
+}

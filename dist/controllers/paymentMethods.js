@@ -13,6 +13,7 @@ exports.modifyExpirationDates = exports.getExpirationDates = exports.addExpirati
 const client_1 = require("@prisma/client");
 const dateParser_1 = require("../helpers/dateParser");
 const prisma = new client_1.PrismaClient();
+//Agregar métodos de pago para un usuario
 const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.body.userConfirmed.user_id;
@@ -58,6 +59,19 @@ const getUserPaymentMethods = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getUserPaymentMethods = getUserPaymentMethods;
+//  export const modifyUserPaymentMethods = async (req: Request, res: Response) => {
+//   try {
+//     const userId: number = req.body.userConfirmed.user_id;
+//     const userPaymentMethodToModify = req.body
+//     const {user_pm_id} = userPaymentMethodToModify
+//     const modifyUserPaymethMethodData = await prisma.user_payment_method.findUnique({
+//       where: {
+//         user_pm_id: userPaymentMethodToModify
+//       }
+//     })
+//   } catch (error) {
+//   }
+//  }
 const getPaymentMethods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const paymentMethods = yield prisma.payment_method.findMany();
