@@ -8,6 +8,8 @@ import { parseDate } from "../helpers/dateParser";
 
 const prisma = new PrismaClient();
 
+//Registro de usuario
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const userData: IUser = req.body;

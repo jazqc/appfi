@@ -6,6 +6,7 @@ import { parseDate } from "../helpers/dateParser";
 
 const prisma = new PrismaClient();
 
+//Agregar métodos de pago para un usuario
 export const addUserPaymentMethod = async (req: Request, res: Response) => {
     try {
       const userId: number = req.body.userConfirmed.user_id;
