@@ -17,6 +17,7 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const client_1 = require("@prisma/client");
 const constants_1 = require("../helpers/constants");
 const generateJWT_1 = require("../helpers/generateJWT");
+const dateParser_1 = require("../helpers/dateParser");
 const prisma = new client_1.PrismaClient();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -30,10 +31,14 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (adminKey === process.env.KEYFORADMIN) {
             userData.rol = constants_1.ROLES.admin;
         }
-        const parsedBirthDate = new Date(birth_date);
-        if (isNaN(parsedBirthDate.getTime())) {
-            res.status(400).json({ msg: "formato de fecha invalida" });
-            return;
+        // const parsedBirthDate = new Date(birth_date);
+        // if (isNaN(parsedBirthDate.getTime())) {
+        //   res.status(400).json({ msg: "formato de fecha invalida" });
+        //   return;
+        // }
+        const parsedBirthDate = (0, dateParser_1.parseDate)(birth_date);
+        if (!parsedBirthDate) {
+            return res.status(400).json({ error: "Formato de fecha invalido" });
         }
         const user = yield prisma.user.create({
             data: {

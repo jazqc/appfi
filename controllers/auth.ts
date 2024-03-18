@@ -4,6 +4,7 @@ import bcryptjs from "bcryptjs";
 import {PrismaClient} from "@prisma/client";
 import { ROLES } from "../helpers/constants";
 import { generateJWT } from "../helpers/generateJWT";
+import { parseDate } from "../helpers/dateParser";
 
 const prisma = new PrismaClient();
 
@@ -30,13 +31,15 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
 
-    const parsedBirthDate = new Date(birth_date);
-    if (isNaN(parsedBirthDate.getTime())) {
-      res.status(400).json({ msg: "formato de fecha invalida" });
-      return;
-    }
-
-
+    // const parsedBirthDate = new Date(birth_date);
+    // if (isNaN(parsedBirthDate.getTime())) {
+    //   res.status(400).json({ msg: "formato de fecha invalida" });
+    //   return;
+    // }
+    const parsedBirthDate = parseDate(birth_date);
+    if (!parsedBirthDate) {
+     return res.status(400).json({ error: "Formato de fecha invalido" });
+   }
 
     const user = await prisma.user.create({
       data: {

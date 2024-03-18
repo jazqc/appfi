@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.modifyExpirationDates = exports.getExpirationDates = exports.addExpirationDate = exports.getPaymentMethods = exports.getUserPaymentMethods = exports.addUserPaymentMethod = void 0;
 const client_1 = require("@prisma/client");
+const dateParser_1 = require("../helpers/dateParser");
 const prisma = new client_1.PrismaClient();
 const addUserPaymentMethod = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -75,15 +76,15 @@ const addExpirationDate = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const userId = req.body.userConfirmed.user_id;
         const expirationData = req.body;
         const { closing_day, expiration_day, user_pm_id, } = expirationData;
-        function parseDate(dateString) {
-            const parsedDate = new Date(dateString);
-            if (isNaN(parsedDate.getTime())) {
-                return null;
-            }
-            return parsedDate;
-        }
-        const parsedExpirationDate = parseDate(expiration_day);
-        const parsedClosingDate = parseDate(closing_day);
+        //  function parseDate(dateString: any) {
+        //   const parsedDate = new Date(dateString);
+        //   if (isNaN(parsedDate.getTime())) {
+        //      return null;
+        //   }
+        //   return parsedDate;
+        //  }
+        const parsedExpirationDate = (0, dateParser_1.parseDate)(expiration_day);
+        const parsedClosingDate = (0, dateParser_1.parseDate)(closing_day);
         if (!parsedExpirationDate || !parsedClosingDate) {
             return res.status(400).json({ error: "Formato de fecha invalido" });
         }

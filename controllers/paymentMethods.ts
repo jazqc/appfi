@@ -2,6 +2,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { IExpiration, IUserPaymentMethod } from "../models/payment_methods";
+import { parseDate } from "../helpers/dateParser";
 
 const prisma = new PrismaClient();
 
@@ -83,13 +84,13 @@ export const addExpirationDate = async (req: Request, res: Response) => {
        user_pm_id,
      } = expirationData;
  
-     function parseDate(dateString: any) {
-      const parsedDate = new Date(dateString);
-      if (isNaN(parsedDate.getTime())) {
-         return null;
-      }
-      return parsedDate;
-     }
+    //  function parseDate(dateString: any) {
+    //   const parsedDate = new Date(dateString);
+    //   if (isNaN(parsedDate.getTime())) {
+    //      return null;
+    //   }
+    //   return parsedDate;
+    //  }
      const parsedExpirationDate = parseDate(expiration_day);
      const parsedClosingDate = parseDate(closing_day);
 
