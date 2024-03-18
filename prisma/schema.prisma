@@ -41,6 +41,7 @@ model User_payment_method {
  set_alarm      Boolean         @default(false)
  payment_method Payment_method @relation(fields: [type_id], references: [pm_type_id])
  expiration     Expirations[]
+ transactions   Transaction[] 
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
 }
@@ -80,6 +81,7 @@ model Transaction {
     recurrency_id                   Int?
     recurrency                      Recurrency? @relation(fields: [recurrency_id], references: [recurrency_id])
     user_payment_method_id          Int
+    user_payment_method             User_payment_method @relation(fields: [user_payment_method_id], references: [user_pm_id])
     expiration_id                   Int?
     installments                    Boolean?
     installments_payments           Int?
