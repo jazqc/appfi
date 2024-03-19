@@ -139,10 +139,12 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const userId = req.body.userConfirmed.user_id;
         //el front tiene que tomar el token de los params para enviarlos como header
         const { username, password } = req.body;
+        const salt = bcryptjs_1.default.genSaltSync();
+        const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
         const updateUser = yield prisma.user.update({
             where: { user_id: userId,
                 username: username },
-            data: { password: password },
+            data: { password: hashedPassword },
         });
         if (!updateUser) {
             return res.status(400).json({
