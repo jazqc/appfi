@@ -120,12 +120,16 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     const token = yield (0, generateJWT_1.generateJWT)(user.user_id);
+    (0, mailer_1.sendToken)(email, token);
     res.status(202).json({
-        user,
-        token,
+        msg: "email enviado"
     });
-    yield (0, mailer_1.sendToken)(email, token);
-    res.send("Email enviado");
+    // res.status(202).json({
+    //   user,
+    //   token,
+    // });
+    // await sendToken(email, token)
+    // res.send("Email enviado")
 });
 exports.resetPassword = resetPassword;
 //# sourceMappingURL=auth.js.map

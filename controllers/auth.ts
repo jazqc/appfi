@@ -128,12 +128,17 @@ export const resetPassword = async (req: Request, res: Response) => {
     
   }
   const token = await generateJWT(user.user_id);
-  res.status(202).json({
-    user,
-    token,
+  sendToken(email, token)
+    res.status(202).json({
+ msg: "email enviado"
   });
 
-  await sendToken(email, token)
-  res.send("Email enviado")
+  // res.status(202).json({
+  //   user,
+  //   token,
+  // });
+
+  // await sendToken(email, token)
+  // res.send("Email enviado")
 
 }
