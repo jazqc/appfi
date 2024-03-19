@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_1 = require("../controllers/auth");
@@ -6,6 +9,7 @@ const express_validator_1 = require("express-validator");
 const validationsDB_1 = require("../helpers/validationsDB");
 const recolectErrors_1 = require("../middlewares/recolectErrors");
 const auth_2 = require("../controllers/auth");
+const validateJWT_1 = __importDefault(require("../middlewares/validateJWT"));
 const router = (0, express_1.Router)();
 router.post("/register", [
     (0, express_validator_1.check)("username", 'el nombre de usuario es obligatorio').not().isEmpty(),
@@ -25,7 +29,7 @@ router.post("/login", [(0, express_validator_1.check)("username", 'el nombre de 
 router.post("/sendResetPassword", [
     (0, express_validator_1.check)("email", 'el email es obligatorio').isEmail()
 ], auth_1.sendResetPassword);
-router.patch("/resetPassword", [
+router.patch("/resetPassword", validateJWT_1.default, [
     (0, express_validator_1.check)("username", 'el usuario es obligatorio').not().isEmpty(),
     (0, express_validator_1.check)("password", 'debe ingresar una nueva contraseña').not().isEmpty(),
 ], auth_1.resetPassword);
