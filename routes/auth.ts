@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, sendResetPassword } from "../controllers/auth";
+import { createUser, resetPassword, sendResetPassword } from "../controllers/auth";
 import {check} from "express-validator";
 import { existEmail, existUsername } from "../helpers/validationsDB";
 import { recolectErrors } from "../middlewares/recolectErrors";
@@ -32,7 +32,14 @@ router.post("/sendResetPassword", [
     check ("email", 'el email es obligatorio').isEmail()  
 ],
  sendResetPassword)
+ 
+ router.patch("/resetPassword", [
+    check ("username", 'el usuario es obligatorio').not().isEmpty(),
+    check ("password", 'debe ingresar una nueva contraseña').not().isEmpty(),  
 
-// router.patch("/resetPassword")
+],
+resetPassword)
+
+
 
 export default router;

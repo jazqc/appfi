@@ -13,6 +13,7 @@ const prisma = new PrismaClient();
 //Registro de usuario
 
 export const createUser = async (req: Request, res: Response) => {
+  
   try {
     const userData: IUser = req.body;
     const {
@@ -141,3 +142,35 @@ export const sendResetPassword = async (req: Request, res: Response) => {
      });
   }
  };
+
+ export const resetPassword = async (req: Request, res: Response) => {
+  
+  try {
+    const userId: number = req.body.userConfirmed.user_id;
+    //el front tiene que tomar el token de los params para enviarlos como header
+    const {username, password }: IUser = req.body;
+    const updateUser = await prisma.user.update({
+      where: { user_id: userId,
+               username: username },
+      data: { password: password },
+    });
+
+    if(!updateUser) {
+      return res.status(400).json({
+        msg: "Usuario no registrado",
+      });
+    }
+  else { res.status(200).json({
+    msg: "Contraseña actualizada con éxito",
+  })}}
+    catch (error) {
+      console.error('Error al actualizar la contraseña:', error);
+      res.status(500).json({
+        msg: "Error del servidor",
+      });
+    }
+  }
+
+  
+
+ 

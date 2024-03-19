@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendResetPassword = exports.login = exports.createUser = void 0;
+exports.resetPassword = exports.sendResetPassword = exports.login = exports.createUser = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const client_1 = require("@prisma/client");
 const constants_1 = require("../helpers/constants");
@@ -134,4 +134,33 @@ const sendResetPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.sendResetPassword = sendResetPassword;
+const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.body.userConfirmed.user_id;
+        //el front tiene que tomar el token de los params para enviarlos como header
+        const { username, password } = req.body;
+        const updateUser = yield prisma.user.update({
+            where: { user_id: userId,
+                username: username },
+            data: { password: password },
+        });
+        if (!updateUser) {
+            return res.status(400).json({
+                msg: "Usuario no registrado",
+            });
+        }
+        else {
+            res.status(200).json({
+                msg: "Contraseña actualizada con éxito",
+            });
+        }
+    }
+    catch (error) {
+        console.error('Error al actualizar la contraseña:', error);
+        res.status(500).json({
+            msg: "Error del servidor",
+        });
+    }
+});
+exports.resetPassword = resetPassword;
 //# sourceMappingURL=auth.js.map

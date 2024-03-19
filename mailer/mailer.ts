@@ -20,7 +20,7 @@ export const sendToken = async (to: string, token: string): Promise<void> => {
         text: `
             Recibiste este correo porque se solicitó el reseteo de contraseña. Si no fuiste tu, alguien más podría estar intentando ingresar a tu cuenta.
             Para reiniciar tu contraseña, por favor ingrese al siguiente link: \n
-            http://localhost:3000/reset/${token}
+            https://appfi-jazqc.vercel.app/auth/resetPassword/${token}
 
              \n
              

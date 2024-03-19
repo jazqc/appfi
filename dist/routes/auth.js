@@ -25,6 +25,9 @@ router.post("/login", [(0, express_validator_1.check)("username", 'el nombre de 
 router.post("/sendResetPassword", [
     (0, express_validator_1.check)("email", 'el email es obligatorio').isEmail()
 ], auth_1.sendResetPassword);
-// router.patch("/resetPassword")
+router.patch("/resetPassword", [
+    (0, express_validator_1.check)("username", 'el usuario es obligatorio').not().isEmpty(),
+    (0, express_validator_1.check)("password", 'debe ingresar una nueva contraseña').not().isEmpty(),
+], auth_1.resetPassword);
 exports.default = router;
 //# sourceMappingURL=auth.js.map
