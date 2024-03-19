@@ -9,7 +9,7 @@ export const generateJWT = (id: number): Promise<string> => {
             payload,
             process.env.KEYFORSIGN as string,
             {
-                expiresIn: "4h"
+                expiresIn: "2h"
             },
             (err: Error | null, token: string | undefined) => {
                 if(err){

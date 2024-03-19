@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, resetPassword } from "../controllers/auth";
+import { createUser, sendResetPassword } from "../controllers/auth";
 import {check} from "express-validator";
 import { existEmail, existUsername } from "../helpers/validationsDB";
 import { recolectErrors } from "../middlewares/recolectErrors";
@@ -27,9 +27,12 @@ router.post("/login",
 check ("password", 'el password debe ser de mínimo 8 digitos').not().isEmpty(),
 recolectErrors
 ], login)
-router.post("/resetPassword", [
+
+router.post("/sendResetPassword", [
     check ("email", 'el email es obligatorio').isEmail()  
 ],
- resetPassword)
+ sendResetPassword)
+
+// router.patch("/resetPassword")
 
 export default router;

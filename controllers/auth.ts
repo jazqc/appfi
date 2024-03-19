@@ -116,7 +116,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 // resetPassword
 
-export const resetPassword = async (req: Request, res: Response) => {
+export const sendResetPassword = async (req: Request, res: Response) => {
   try {
      const { email } = req.body;
      const user = await prisma.user.findUnique({

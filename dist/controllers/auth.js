@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPassword = exports.login = exports.createUser = void 0;
+exports.sendResetPassword = exports.login = exports.createUser = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const client_1 = require("@prisma/client");
 const constants_1 = require("../helpers/constants");
@@ -109,7 +109,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.login = login;
 // resetPassword
-const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const sendResetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email } = req.body;
         const user = yield prisma.user.findUnique({
@@ -133,5 +133,5 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
-exports.resetPassword = resetPassword;
+exports.sendResetPassword = sendResetPassword;
 //# sourceMappingURL=auth.js.map

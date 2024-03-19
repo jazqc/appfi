@@ -22,8 +22,9 @@ router.post("/login", [(0, express_validator_1.check)("username", 'el nombre de 
     (0, express_validator_1.check)("password", 'el password debe ser de mínimo 8 digitos').not().isEmpty(),
     recolectErrors_1.recolectErrors
 ], auth_2.login);
-router.post("/resetPassword", [
+router.post("/sendResetPassword", [
     (0, express_validator_1.check)("email", 'el email es obligatorio').isEmail()
-], auth_1.resetPassword);
+], auth_1.sendResetPassword);
+// router.patch("/resetPassword")
 exports.default = router;
 //# sourceMappingURL=auth.js.map
