@@ -117,28 +117,27 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 // resetPassword
 
 export const resetPassword = async (req: Request, res: Response) => {
-  const {email} = req.body;
-  const user = await prisma.user.findUnique({
-    where: {email: email}
-  })
-  if (!user) {
-    return res.status(400).json({
-      msg: "Usuario inexistente",
-    });
-    
+  try {
+     const { email } = req.body;
+     const user = await prisma.user.findUnique({
+       where: { email: email },
+     });
+ 
+     if (!user) {
+       return res.status(400).json({
+         msg: "Email inexistente",
+       });
+     }
+ 
+     const token = await generateJWT(user.user_id); 
+     await sendToken(email, token); 
+     res.status(202).json({
+       msg: "email enviado",
+     });
+  } catch (error) {
+     console.error(error);
+     res.status(500).json({
+       msg: "Error",
+     });
   }
-  const token = await generateJWT(user.user_id);
-  sendToken(email, token)
-    res.status(202).json({
- msg: "email enviado"
-  });
-
-  // res.status(202).json({
-  //   user,
-  //   token,
-  // });
-
-  // await sendToken(email, token)
-  // res.send("Email enviado")
-
-}
+ };

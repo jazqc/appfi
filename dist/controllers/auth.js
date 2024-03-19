@@ -110,26 +110,28 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.login = login;
 // resetPassword
 const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
-    const user = yield prisma.user.findUnique({
-        where: { email: email }
-    });
-    if (!user) {
-        return res.status(400).json({
-            msg: "Usuario inexistente",
+    try {
+        const { email } = req.body;
+        const user = yield prisma.user.findUnique({
+            where: { email: email },
+        });
+        if (!user) {
+            return res.status(400).json({
+                msg: "Email inexistente",
+            });
+        }
+        const token = yield (0, generateJWT_1.generateJWT)(user.user_id);
+        yield (0, mailer_1.sendToken)(email, token);
+        res.status(202).json({
+            msg: "email enviado",
         });
     }
-    const token = yield (0, generateJWT_1.generateJWT)(user.user_id);
-    (0, mailer_1.sendToken)(email, token);
-    res.status(202).json({
-        msg: "email enviado"
-    });
-    // res.status(202).json({
-    //   user,
-    //   token,
-    // });
-    // await sendToken(email, token)
-    // res.send("Email enviado")
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            msg: "Error",
+        });
+    }
 });
 exports.resetPassword = resetPassword;
 //# sourceMappingURL=auth.js.map
