@@ -72,6 +72,7 @@ exports.getUserPaymentMethods = getUserPaymentMethods;
 //   } catch (error) {
 //   }
 //  }
+//Traer Efectivo, Crédito, Débito
 const getPaymentMethods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const paymentMethods = yield prisma.payment_method.findMany();

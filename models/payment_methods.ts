@@ -14,7 +14,7 @@ export interface IUserPaymentMethod {
     user_pm_id: number;
     user_id: number;
     type_id: number;
-    subtype: string;
+    subtype?: string;
     name: string;
     description?: string;
     set_alarm: boolean;

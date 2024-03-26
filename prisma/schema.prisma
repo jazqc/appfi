@@ -37,7 +37,7 @@ model User_payment_method {
  user_pm_id     Int            @id @default(autoincrement())
  user_id        Int
  type_id        Int
- subtype        String
+ subtype        String?
  name           String
  description    String?
  set_alarm      Boolean         @default(false)

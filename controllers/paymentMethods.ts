@@ -77,7 +77,7 @@ export const getUserPaymentMethods = async (req: Request, res: Response) => {
 //   }
 
 //  }
-
+//Traer Efectivo, Crédito, Débito
  export const getPaymentMethods = async (req: Request, res: Response) => {
   try {
      const paymentMethods = await prisma.payment_method.findMany();

@@ -25,19 +25,15 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const userData = req.body;
         const { username, password, rol, email, name, last_name, birth_date, family_in_charge, } = userData;
-        //Encriptado
+        // Encriptado
         const salt = bcryptjs_1.default.genSaltSync();
         const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
-        //Chequeo de credenciales
+        // Checkeo de credenciales
         const adminKey = req.headers["admin-key"];
         if (adminKey === process.env.KEYFORADMIN) {
             userData.rol = constants_1.ROLES.admin;
         }
-        // const parsedBirthDate = new Date(birth_date);
-        // if (isNaN(parsedBirthDate.getTime())) {
-        //   res.status(400).json({ msg: "formato de fecha invalida" });
-        //   return;
-        // }
+        // Parseo de fecha
         const parsedBirthDate = (0, dateParser_1.parseDate)(birth_date);
         if (!parsedBirthDate) {
             return res.status(400).json({ error: "Formato de fecha invalido" });
@@ -54,13 +50,32 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 family_in_charge,
             },
         });
-        prisma.$disconnect();
-        res.json({
-            msg: "Usuario creado con éxito", user
-        });
+        // Agregar método default
+        try {
+            const defaultData = {
+                user_id: user.user_id,
+                type_id: 3,
+                name: "Cash",
+            };
+            const userPM = yield prisma.user_payment_method.create({
+                data: defaultData,
+            });
+            res.status(200).json({
+                msg: "Usuario creado con éxito y se agregó el método de pago Cash",
+                user,
+                userPM,
+            });
+        }
+        catch (error) {
+            console.error("Error al agregar el método de pago:", error);
+            res.status(500).json({ msg: "Error al agregar el método de pago" });
+        }
+        finally {
+            prisma.$disconnect();
+        }
     }
     catch (error) {
-        console.error(error);
+        console.error("Error al crear usuario:", error);
         res.status(500).json({ msg: "Error al crear usuario" });
         prisma.$disconnect();
     }
@@ -142,8 +157,10 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const salt = bcryptjs_1.default.genSaltSync();
         const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
         const updateUser = yield prisma.user.update({
-            where: { user_id: userId,
-                username: username },
+            where: {
+                user_id: userId,
+                username: username
+            },
             data: { password: hashedPassword },
         });
         if (!updateUser) {
